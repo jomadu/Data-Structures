@@ -7,6 +7,11 @@
 //
 
 #include "Stack.hpp"
-#include <stdexcept>
-#include <sstream>
-#include <iostream>
+
+Stack::Stack(){
+
+}
+
+Stack::~Stack(){
+
+}

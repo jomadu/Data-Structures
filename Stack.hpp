@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include "LinkedList.hpp"
 #include <stdexcept>
+#include <sstream>
 
 class Stack{
 private:
