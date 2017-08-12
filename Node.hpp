@@ -1,12 +1,10 @@
-/****************************
- 
- Node.hpp
- -----------------------------
- Author: Max Dunn
- Copyright © 2017 Max Dunn.
- All rights reserved.
- 
- ****************************/
+//
+//  Node.hpp
+//  DataStructures
+//
+//  Created by Max Dunn on 8/4/17.
+//  Copyright © 2017 Max Dunn. All rights reserved.
+//
 
 #ifndef Node_hpp
 #define Node_hpp
@@ -20,14 +18,24 @@ private:
     Node * next;
     Node * prev;
 public:
+    // Constructors
     Node();
-    ~Node(); 
+    Node(int d);
+    
+    // Destructor
+    ~Node();
+    
+    // Gets
     int getData();
     Node * getNext();
     Node * getPrev();
+
+    // Sets
     void setData(int d);
-    void setNext(Node * np);
-    void setPrev(Node * np);
+    void setNext(Node * n);
+    void setPrev(Node * n);
+    
+    // Helpers
 };
 
 #endif

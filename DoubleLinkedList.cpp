@@ -1,24 +1,25 @@
-/****************************
+//
+//  DoubleLinkedList.cpp
+//  DataStructures
+//
+//  Created by Max Dunn on 7/26/17.
+//  Copyright © 2017 Max Dunn. All rights reserved.
+//
 
-DoubleLinkedList.cpp
------------------------------
-Author: Max Dunn 
-Copyright © 2017 Max Dunn.
-All rights reserved.
-
-****************************/
 
 #ifndef DoubleLinkedList_hpp
 #define DoubleLinkedList_hpp
 
 #include "DoubleLinkedList.hpp"
 
+// Constructors
 DoubleLinkedList::DoubleLinkedList(){
     size = 0;
     head = NULL;
     tail = NULL;
 }
 
+// Destructor
 DoubleLinkedList::~DoubleLinkedList(){
     Node * curr = head;
     Node * next = head;
@@ -31,11 +32,42 @@ DoubleLinkedList::~DoubleLinkedList(){
     tail = NULL;
 }
 
-void DoubleLinkedList::append(int d){
-    Node * newNode = new Node();
-    newNode->setData(d);
+// Gets
+int DoubleLinkedList::getSize(){
+    return size;
+}
 
-    if (head == NULL){
+// Sets
+
+// Helpers
+int DoubleLinkedList::getData(int idx){
+    Node * curr = head;
+    
+    if (idx < 0 || idx >= size)
+        throw out_of_range("Data retrieval idx out of range.");
+    
+    for (int i = 0; i < idx; i++){
+        curr = curr->getNext();
+    }
+    return curr->getData();
+}
+
+void DoubleLinkedList::setData(int idx, int d){
+    Node * curr = head;
+    
+    if (idx < 0 || idx >= size)
+        throw out_of_range("Data retrieval idx out of range.");
+    
+    for (int i = 0; i < idx; i++){
+        curr = curr->getNext();
+    }
+    
+    curr->setData(d);
+}
+void DoubleLinkedList::insertTail(int d){
+    Node * newNode = new Node(d);
+
+    if (this->isEmpty()){
         head = newNode;
         tail = newNode;
     }
@@ -47,10 +79,8 @@ void DoubleLinkedList::append(int d){
 
     size++;
 }
-
-void DoubleLinkedList::prepend(int d){
-    Node * newNode = new Node();
-    newNode->setData(d);
+void DoubleLinkedList::insertHead(int d){
+    Node * newNode = new Node(d);
 
     if (head == NULL){
         head = newNode;
@@ -64,24 +94,22 @@ void DoubleLinkedList::prepend(int d){
 
     size++;
 }
-
 void DoubleLinkedList::insert(int idx, int d){
     // Input Cleansing
     if (idx < 0 || idx > size)
         throw out_of_range("Insertion idx out of range.");
 
-    // Insert as a prepend
+    // Insert as a insertHead
     if (idx == 0){
-        prepend(d);
+        insertHead(d);
     }
-    // Insert as an append
+    // Insert as an insertTail
     else if (idx == size){
-        append(d);
+        insertTail(d);
     }
     // Insert in the middle
     else{
-        Node * newNode = new Node();
-        newNode->setData(d);
+        Node * newNode = new Node(d);
         Node * curr = head;
         Node * prev = head;
         for (int i = 0; i < idx; i++){
@@ -95,10 +123,9 @@ void DoubleLinkedList::insert(int idx, int d){
         size++;
     }
 }
-
 void DoubleLinkedList::removeHead(){
     // Empty List
-    if (head == NULL){
+    if (this->isEmpty()){
         return;
     }
     // Single Node in List
@@ -117,10 +144,9 @@ void DoubleLinkedList::removeHead(){
 
     size --;
 }
-
 void DoubleLinkedList::removeTail(){
     // Empty List
-    if (head == NULL){
+    if (this->isEmpty()){
         return;
     }
     // Single Node in List
@@ -139,7 +165,6 @@ void DoubleLinkedList::removeTail(){
 
     size --;
 }
-
 void DoubleLinkedList::remove(int idx){
     // Input Cleansing
     if (idx < 0 || idx >= size)
@@ -154,6 +179,7 @@ void DoubleLinkedList::remove(int idx){
         removeTail();
     }
     // Remove from middle
+    // i.e. idx element of [1, size-2]
     else{
         Node * curr = head;
         Node * prev = head;
@@ -169,7 +195,6 @@ void DoubleLinkedList::remove(int idx){
         size --;
     }
 }
-
 void DoubleLinkedList::display(){
     stringstream ss;
     Node * curr = head;
@@ -192,5 +217,7 @@ Node * DoubleLinkedList::search(int d){
     }
     return NULL;
 }
-
+bool DoubleLinkedList::isEmpty(){
+    return ((head == NULL) && (tail == NULL));
+}
 #endif

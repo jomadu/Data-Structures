@@ -1,21 +1,21 @@
 //
-//  Stack.cpp
+//  Queue.cpp
 //  DataStructures
 //
 //  Created by Max Dunn on 7/26/17.
 //  Copyright © 2017 Max Dunn. All rights reserved.
 //
 
-#include "Stack.hpp"
+#include "Queue.hpp"
 
 // Constructors
-Stack::Stack(){
-
+Queue::Queue(){
+    
 }
 
-// Destructor
-Stack::~Stack(){
-
+// Desctructors
+Queue::~Queue(){
+    
 }
 
 // Gets
@@ -23,22 +23,20 @@ Stack::~Stack(){
 // Sets
 
 // Helpers
-void Stack::push(int d){
+void Queue::push(int d){
     ll.insertHead(d);
 }
-int Stack::pop(){
-    int data = ll.getData(0);
+int Queue::pop(){
+    int data = ll.getData(ll.getSize());
     ll.removeHead();
     return data;
 }
-int Stack::peek(){
+int Queue::peek(){
     return ll.getData(0);
 }
-bool Stack::isEmpty(){
+bool Queue::isEmpty(){
     return ll.isEmpty();
 }
-int Stack::getSize(){
+int Queue::getSize(){
     return ll.getSize();
 }
-
-

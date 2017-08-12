@@ -1,24 +1,24 @@
-/****************************
-
-CircularCircularDoubleLinkedList.cpp
------------------------------
-Author: Max Dunn 
-Copyright © 2017 Max Dunn.
-All rights reserved.
-
-****************************/
+//
+//  CircularDoubleLinkedList.cpp
+//  DataStructures
+//
+//  Created by Max Dunn on 7/26/17.
+//  Copyright © 2017 Max Dunn. All rights reserved.
+//
 
 #ifndef CircularDoubleLinkedList_hpp
 #define CircularDoubleLinkedList_hpp
 
 #include "CircularDoubleLinkedList.hpp"
 
+//Constructors
 CircularDoubleLinkedList::CircularDoubleLinkedList(){
     size = 0;
     head = NULL;
     tail = NULL;
 }
 
+// Destructor
 CircularDoubleLinkedList::~CircularDoubleLinkedList(){
     Node * curr = head;
     Node * next = head;
@@ -31,15 +31,42 @@ CircularDoubleLinkedList::~CircularDoubleLinkedList(){
     tail = NULL;
 }
 
+// Gets
 int CircularDoubleLinkedList::getSize(){
     return size;
 }
 
-void CircularDoubleLinkedList::append(int d){
-    Node * newNode = new Node();
-    newNode->setData(d);
+// Sets
 
-    if (head == NULL){
+// Helpers
+int CircularDoubleLinkedList::getData(int idx){
+    Node * curr = head;
+    
+    if (idx < 0 || idx >= size)
+        throw out_of_range("Data retrieval idx out of range.");
+    
+    for (int i = 0; i < idx; i++){
+        curr = curr->getNext();
+    }
+    
+    return curr->getData();
+}
+void CircularDoubleLinkedList::setData(int idx, int d){
+    Node * curr = head;
+    
+    if (idx < 0 || idx >= size)
+        throw out_of_range("Data retrieval idx out of range.");
+    
+    for (int i = 0; i < idx; i++){
+        curr = curr->getNext();
+    }
+    
+    curr->setData(d);
+}
+void CircularDoubleLinkedList::insertTail(int d){
+    Node * newNode = new Node(d);
+
+    if (this->isEmpty()){
         head = newNode;
         tail = newNode;
     }
@@ -53,12 +80,10 @@ void CircularDoubleLinkedList::append(int d){
 
     size++;
 }
-
-void CircularDoubleLinkedList::prepend(int d){
-    Node * newNode = new Node();
-    newNode->setData(d);
-
-    if (head == NULL){
+void CircularDoubleLinkedList::insertHead(int d){
+    Node * newNode = new Node(d);
+    
+    if (this->isEmpty()){
         head = newNode;
         tail = newNode;
         newNode->setNext(head);
@@ -74,24 +99,22 @@ void CircularDoubleLinkedList::prepend(int d){
 
     size++;
 }
-
 void CircularDoubleLinkedList::insert(int idx, int d){
     // Input Cleansing
     if (idx < 0 || idx > size)
         throw out_of_range("Insertion idx out of range.");
 
-    // Insert as a prepend
+    // Insert as a insertHead
     if (idx == 0){
-        prepend(d);
+        insertHead(d);
     }
-    // Insert as an append
+    // Insert as an insertTail
     else if (idx == size){
-        append(d);
+        insertTail(d);
     }
     // Insert in the middle
     else{
-        Node * newNode = new Node();
-        newNode->setData(d);
+        Node * newNode = new Node(d);
         Node * curr = head;
         Node * prev = head;
         for (int i = 0; i < idx; i++){
@@ -105,10 +128,9 @@ void CircularDoubleLinkedList::insert(int idx, int d){
         size++;
     }
 }
-
 void CircularDoubleLinkedList::removeHead(){
     // Empty List
-    if (head == NULL){
+    if (this->isEmpty()){
         return;
     }
     // Single Node in List
@@ -119,18 +141,17 @@ void CircularDoubleLinkedList::removeHead(){
     }
     // Multiple Nodes in list 
     else{
-        Node * next = head->getNext();
+        Node * second = head->getNext();
         delete head;
-        next->setPrev(tail);
-        head = next;
+        second->setPrev(tail);
+        head = second;
     }
 
     size --;
 }
-
 void CircularDoubleLinkedList::removeTail(){
     // Empty List
-    if (head == NULL){
+    if (this->isEmpty()){
         return;
     }
     // Single Node in List
@@ -179,7 +200,6 @@ void CircularDoubleLinkedList::remove(int idx){
         size --;
     }
 }
-
 void CircularDoubleLinkedList::display(){
     stringstream ss;
     Node * curr = head;
@@ -189,7 +209,6 @@ void CircularDoubleLinkedList::display(){
     }
     cout << ss.str() + "EOL\n";
 }
-
 Node * CircularDoubleLinkedList::search(int d){
     Node * curr = head;
     for (int i = 0; i < (size - 1); i++){
@@ -201,6 +220,9 @@ Node * CircularDoubleLinkedList::search(int d){
         }
     }
     return NULL;
+}
+bool CircularDoubleLinkedList::isEmpty(){
+    return ((head == NULL) && (tail == NULL));
 }
 
 #endif

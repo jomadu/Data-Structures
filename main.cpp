@@ -10,7 +10,8 @@
 #include "LinkedList.hpp"
 #include "DoubleLinkedList.hpp"
 #include "CircularDoubleLinkedList.hpp"
-
+#include "Graph.hpp"
+#include "Tree.hpp"
 
 using namespace std;
 
@@ -19,23 +20,23 @@ void LLTest(){
     LinkedList list;
     /*
      Functions to test:
-     append
+     insertTail
      Empty
      1-Node
      2-Nodes
-     prepend
+     insertHead
      Empty
      1-Node
      2-Nodes
-     insert (append, prepend, middle)
+     insert (insertTail, insertHead, middle)
      Empty
      1-Node
-     append
-     prepend
+     insertTail
+     insertHead
      2-Nodes
-     append
+     insertTail
      insertMiddle
-     prepend
+     insertHead
      removeHead
      Empty
      1-Node
@@ -54,39 +55,39 @@ void LLTest(){
      removeHead
      removeTail
      */
-    cout << "Testing append & removeTail:\n";
-    list.append(0);
+    cout << "Testing insertTail & removeTail:\n";
+    list.insertTail(0);
     list.display();
     list.removeTail();
     
-    list.append(0);
-    list.append(1);
+    list.insertTail(0);
+    list.insertTail(1);
     list.display();
     list.removeTail();
     list.removeTail();
     
-    list.append(0);
-    list.append(1);
-    list.append(2);
+    list.insertTail(0);
+    list.insertTail(1);
+    list.insertTail(2);
     list.display();
     list.removeTail();
     list.removeTail();
     list.removeTail();
     
-    cout << "Testing prepend & removeHead:\n";
-    list.prepend(0);
-    list.display();
-    list.removeHead();
-    
-    list.prepend(1);
-    list.prepend(0);
+    cout << "Testing insertHead & removeHead:\n";
+    list.insertHead(0);
     list.display();
     list.removeHead();
+    
+    list.insertHead(1);
+    list.insertHead(0);
+    list.display();
+    list.removeHead();
     list.removeHead();
     
-    list.prepend(2);
-    list.prepend(1);
-    list.prepend(0);
+    list.insertHead(2);
+    list.insertHead(1);
+    list.insertHead(0);
     list.display();
     list.removeHead();
     list.removeHead();
@@ -97,7 +98,7 @@ void LLTest(){
     list.display();
     list.removeHead();
     
-    list.append(1);
+    list.insertTail(1);
     list.insert(1,2);
     list.insert(0,0);
     list.display();
@@ -105,8 +106,8 @@ void LLTest(){
     list.removeHead();
     list.removeHead();
     
-    list.append(1);
-    list.append(3);
+    list.insertTail(1);
+    list.insertTail(3);
     list.insert(2,4);
     list.insert(0,0);
     list.insert(2,2);
@@ -118,25 +119,25 @@ void LLTest(){
     list.removeHead();
     
     cout << "Testing remove:\n";
-    list.append(0);
+    list.insertTail(0);
     list.display();
     list.remove(0);
     list.display();
     
-    list.append(0);
-    list.append(1);
-    list.append(2);
+    list.insertTail(0);
+    list.insertTail(1);
+    list.insertTail(2);
     list.display();
     list.remove(0);
     list.remove(1);
     list.display();
     list.removeHead();
     
-    list.append(0);
-    list.append(1);
-    list.append(2);
-    list.append(3);
-    list.append(4);
+    list.insertTail(0);
+    list.insertTail(1);
+    list.insertTail(2);
+    list.insertTail(3);
+    list.insertTail(4);
     list.display();
     list.remove(2);
     list.remove(0);
@@ -150,23 +151,23 @@ void DLLTest(){
     DoubleLinkedList list;
     /*
      Functions to test:
-     append
+     insertTail
      Empty
      1-Node
      2-Nodes
-     prepend
+     insertHead
      Empty
      1-Node
      2-Nodes
-     insert (append, prepend, middle)
+     insert (insertTail, insertHead, middle)
      Empty
      1-Node
-     append
-     prepend
+     insertTail
+     insertHead
      2-Nodes
-     append
+     insertTail
      insertMiddle
-     prepend
+     insertHead
      removeHead
      Empty
      1-Node
@@ -185,39 +186,39 @@ void DLLTest(){
      removeHead
      removeTail
      */
-    cout << "Testing append & removeTail:\n";
-    list.append(0);
+    cout << "Testing insertTail & removeTail:\n";
+    list.insertTail(0);
     list.display();
     list.removeTail();
     
-    list.append(0);
-    list.append(1);
+    list.insertTail(0);
+    list.insertTail(1);
     list.display();
     list.removeTail();
     list.removeTail();
     
-    list.append(0);
-    list.append(1);
-    list.append(2);
+    list.insertTail(0);
+    list.insertTail(1);
+    list.insertTail(2);
     list.display();
     list.removeTail();
     list.removeTail();
     list.removeTail();
     
-    cout << "Testing prepend & removeHead:\n";
-    list.prepend(0);
-    list.display();
-    list.removeHead();
-    
-    list.prepend(1);
-    list.prepend(0);
+    cout << "Testing insertHead & removeHead:\n";
+    list.insertHead(0);
     list.display();
     list.removeHead();
+    
+    list.insertHead(1);
+    list.insertHead(0);
+    list.display();
+    list.removeHead();
     list.removeHead();
     
-    list.prepend(2);
-    list.prepend(1);
-    list.prepend(0);
+    list.insertHead(2);
+    list.insertHead(1);
+    list.insertHead(0);
     list.display();
     list.removeHead();
     list.removeHead();
@@ -228,7 +229,7 @@ void DLLTest(){
     list.display();
     list.removeHead();
     
-    list.append(1);
+    list.insertTail(1);
     list.insert(1,2);
     list.insert(0,0);
     list.display();
@@ -236,8 +237,8 @@ void DLLTest(){
     list.removeHead();
     list.removeHead();
     
-    list.append(1);
-    list.append(3);
+    list.insertTail(1);
+    list.insertTail(3);
     list.insert(2,4);
     list.insert(0,0);
     list.insert(2,2);
@@ -249,25 +250,25 @@ void DLLTest(){
     list.removeHead();
     
     cout << "Testing remove:\n";
-    list.append(0);
+    list.insertTail(0);
     list.display();
     list.remove(0);
     list.display();
     
-    list.append(0);
-    list.append(1);
-    list.append(2);
+    list.insertTail(0);
+    list.insertTail(1);
+    list.insertTail(2);
     list.display();
     list.remove(0);
     list.remove(1);
     list.display();
     list.removeHead();
     
-    list.append(0);
-    list.append(1);
-    list.append(2);
-    list.append(3);
-    list.append(4);
+    list.insertTail(0);
+    list.insertTail(1);
+    list.insertTail(2);
+    list.insertTail(3);
+    list.insertTail(4);
     list.display();
     list.remove(2);
     list.remove(0);
@@ -281,23 +282,23 @@ void CDLLTest(){
     CircularDoubleLinkedList list;
     /*
      Functions to test:
-     append
+     insertTail
         Empty
         1-Node
         2-Nodes
-     prepend
+     insertHead
         Empty
         1-Node
         2-Nodes
-     insert (append, prepend, middle)
+     insert (insertTail, insertHead, middle)
         Empty
         1-Node
-            append
-            prepend
+            insertTail
+            insertHead
         2-Nodes
-            append
+            insertTail
             insertMiddle
-            prepend
+            insertHead
      removeHead
         Empty
         1-Node
@@ -316,39 +317,39 @@ void CDLLTest(){
             removeHead
             removeTail
     */
-    cout << "Testing append & removeTail:\n";
-    list.append(0);
+    cout << "Testing insertTail & removeTail:\n";
+    list.insertTail(0);
     list.display();
     list.removeTail();
     
-    list.append(0);
-    list.append(1);
+    list.insertTail(0);
+    list.insertTail(1);
     list.display();
     list.removeTail();
     list.removeTail();
     
-    list.append(0);
-    list.append(1);
-    list.append(2);
+    list.insertTail(0);
+    list.insertTail(1);
+    list.insertTail(2);
     list.display();
     list.removeTail();
     list.removeTail();
     list.removeTail();
     
-    cout << "Testing prepend & removeHead:\n";
-    list.prepend(0);
-    list.display();
-    list.removeHead();
-    
-    list.prepend(1);
-    list.prepend(0);
+    cout << "Testing insertHead & removeHead:\n";
+    list.insertHead(0);
     list.display();
     list.removeHead();
+    
+    list.insertHead(1);
+    list.insertHead(0);
+    list.display();
+    list.removeHead();
     list.removeHead();
     
-    list.prepend(2);
-    list.prepend(1);
-    list.prepend(0);
+    list.insertHead(2);
+    list.insertHead(1);
+    list.insertHead(0);
     list.display();
     list.removeHead();
     list.removeHead();
@@ -359,7 +360,7 @@ void CDLLTest(){
     list.display();
     list.removeHead();
     
-    list.append(1);
+    list.insertTail(1);
     list.insert(1,2);
     list.insert(0,0);
     list.display();
@@ -367,8 +368,8 @@ void CDLLTest(){
     list.removeHead();
     list.removeHead();
     
-    list.append(1);
-    list.append(3);
+    list.insertTail(1);
+    list.insertTail(3);
     list.insert(2,4);
     list.insert(0,0);
     list.insert(2,2);
@@ -380,25 +381,25 @@ void CDLLTest(){
     list.removeHead();
 
     cout << "Testing remove:\n";
-    list.append(0);
+    list.insertTail(0);
     list.display();
     list.remove(0);
     list.display();
     
-    list.append(0);
-    list.append(1);
-    list.append(2);
+    list.insertTail(0);
+    list.insertTail(1);
+    list.insertTail(2);
     list.display();
     list.remove(0);
     list.remove(1);
     list.display();
     list.removeHead();
     
-    list.append(0);
-    list.append(1);
-    list.append(2);
-    list.append(3);
-    list.append(4);
+    list.insertTail(0);
+    list.insertTail(1);
+    list.insertTail(2);
+    list.insertTail(3);
+    list.insertTail(4);
     list.display();
     list.remove(2);
     list.remove(0);
@@ -407,9 +408,29 @@ void CDLLTest(){
     list.removeHead();
     list.removeHead();
 }
+void graphTest(){
+    cout << "\nGraph Test:\n";
+    Graph graph;
+    
+}
+
+void TreeTest(){
+    Tree tree;
+    tree.insert(10);
+    tree.insert(11);
+    tree.insert(8);
+    tree.insert(9);
+    tree.display(tree.getRoot());
+    tree.remove(9);
+    tree.display(tree.getRoot());
+    tree.insert(9);
+    tree.remove(8);
+    tree.display(tree.getRoot());
+}
 
 int main(){
-    LLTest();
-    DLLTest();
-    CDLLTest();
+    //LLTest();
+    //DLLTest();
+    //CDLLTest();
+    TreeTest();
 }
