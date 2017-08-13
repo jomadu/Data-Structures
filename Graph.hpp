@@ -20,7 +20,7 @@ using namespace std;
 
 class Graph{
 private:
-    unordered_map<int, Vertex *> vertices;
+    unordered_map<int, Vertex *> _vertices;
 public:
     // Constructors
     Graph();
@@ -33,11 +33,12 @@ public:
     // Sets
     
     // Helpers
-    void addVertex(int id, int data);
-    void removeVertex(int id);
+    void addVertex(int key, int d);
+    void removeVertex(int key);
     void addEdge(int o, int d);
     void removeEdge(int o, int d);
-    Vertex * findVertex(int id);
+    Vertex * findVertex(int key);
+    bool hasEdge(int o, int d);
 };
 
 

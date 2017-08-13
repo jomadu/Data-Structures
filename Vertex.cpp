@@ -12,11 +12,11 @@
 Vertex::Vertex(){
 }
 Vertex::Vertex(int key){
-    id = key;
+    _key = key;
 }
-Vertex::Vertex(int key, int d){
-    id = key;
-    data = d;
+Vertex::Vertex(int key, int val){
+    _key = key;
+    _val = val;
 }
 
 // Destructor
@@ -26,27 +26,27 @@ Vertex::~Vertex(){
 }
 
 // Gets
-int Vertex::getId(){
-    return id;
+int Vertex::getKey(){
+    return _key;
 }
-int Vertex::getData(){
-    return data;
+int Vertex::getVal(){
+    return _val;
 }
 unordered_map<int, Vertex *> Vertex::getNbrs(){
     return nbrs;
 }
 
 // Sets
-void Vertex::setData(int d){
-    data = d;
+void Vertex::setVal(int d){
+    _val = d;
 }
 
 // Helpers
-void Vertex::addNbr(int key, ){
-    nbrs.emplace(make_pair(v->getId(), v));
+void Vertex::addNbr(int key, Vertex * vtx){
+    nbrs.emplace(make_pair(key, vtx));
 }
-void Vertex::removeNbr(int id){
-    nbrs.erase(id);
+void Vertex::removeNbr(int key){
+    nbrs.erase(key);
 }
 Vertex * Vertex::findNbr(int key){
     unordered_map<int, Vertex *>::iterator it = nbrs.find(key);

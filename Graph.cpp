@@ -23,42 +23,63 @@ Graph::~Graph(){
 // Sets
 
 // Helpers
-void Graph::addVertex(int id, int data){
-    Vertex * newVertex = new Vertex(id, data);
-    vertices.emplace(make_pair(id, newVertex));
+void Graph::addVertex(int key, int val){
+    Vertex * newVertex = new Vertex(key, val);
+    _vertices.emplace(make_pair(key, newVertex));
 }
-void Graph::removeVertex(int id){
-    vertices.erase(id);
-    for(unordered_map<int, Vertex *>::iterator it = vertices.begin(); it != vertices.end(); it++){
-        it->second->removeNbr(<#Vertex *v#>)
-    
+void Graph::removeVertex(int key){
+    _vertices.erase(key);
+    for(unordered_map<int, Vertex *>::iterator it = _vertices.begin(); it != _vertices.end(); it++){
+        it->second->removeNbr(key);
     }
 }
 void Graph::addEdge(int o, int d){
-    if (vertices.count(o) && vertices.count(d)){
-        Vertex * origin = vertices.find(o)->second;
-        Vertex * dest = vertices.find(d)->second;
+    if (_vertices.count(o) && _vertices.count(d)){
+        Vertex * origin = _vertices.find(o)->second;
+        Vertex * dest = _vertices.find(d)->second;
+        int originKey = origin->getKey();
+        int destKey = dest->getKey();
         
-        origin->addNbr(dest);
-        dest->addNbr(origin);
+        origin->addNbr(destKey, dest);
+        dest->addNbr(originKey, origin);
     }
 }
 void Graph::removeEdge(int o, int d){
     
-    if (vertices.count(o) && vertices.count(d)){
-        Vertex * origin = vertices.find(o)->second;
-        Vertex * dest = vertices.find(d)->second;
-        
-        dest->removeNbr(origin);
-        origin->removeNbr(dest);
+    if (_vertices.count(o) && _vertices.count(d)){
+        Vertex * origin = _vertices.find(o)->second;
+        Vertex * dest = _vertices.find(d)->second;
+    
+        int originKey = _vertices.find(o)->second->getKey();
+        int destKey = _vertices.find(d)->second->getKey();
+    
+        if (origin->findNbr(destKey) && dest->findNbr(originKey)){
+            dest->removeNbr(originKey);
+            origin->removeNbr(destKey);
+        }
     }
     
 }
-Vertex * Graph::findVertex(int id){
-    if (vertices.count(id)){
-        return vertices.find(id)->second;
+Vertex * Graph::findVertex(int key){
+    if (_vertices.count(key)){
+        return _vertices.find(key)->second;
     }
     else{
         return NULL;
     }
 }
+
+
+bool Graph::hasEdge(int o, int d){
+    Vertex * origin = _vertices.find(o)->second;
+    Vertex * dest = _vertices.find(d)->second;
+    
+    int originKey = _vertices.find(o)->second->getKey();
+    int destKey = _vertices.find(d)->second->getKey();
+    
+    if (origin->findNbr(destKey) && dest->findNbr(originKey))
+        return true;
+    else
+        return false;
+}
+

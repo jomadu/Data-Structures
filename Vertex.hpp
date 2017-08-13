@@ -17,28 +17,28 @@ using namespace std;
 
 class Vertex{
 private:
-    int id;
-    int data;
+    int _key;
+    int _val;
     unordered_map<int, Vertex *> nbrs;
 public:
     // Constructors
     Vertex();
     Vertex(int key);
-    Vertex(int key, int d);
+    Vertex(int key, int val);
     
     // Destructor
     ~Vertex();
     
     // Gets
-    int getId();
-    int getData();
+    int getKey();
+    int getVal();
     unordered_map<int, Vertex *> getNbrs();
 
     // Sets
-    void setData(int d);
+    void setVal(int val);
     
     // Helpers
-    void addNbr(int key);
+    void addNbr(int key, Vertex * vtx);
     void removeNbr(int key);
     Vertex * findNbr(int key);
 };

@@ -1,32 +1,32 @@
 //
-//  Tree.cpp
+//  BTree.cpp
 //  DataStructures
 //
 //  Created by Max Dunn on 8/4/17.
 //  Copyright © 2017 Max Dunn. All rights reserved.
 //
 
-#include "Tree.hpp"
+#include "BTree.hpp"
 
 // Constructors
-Tree::Tree(){
+BTree::BTree(){
 
 }
 
 // Destructor
-Tree::~Tree(){
+BTree::~BTree(){
     delete root;
 }
 
 // Gets
-TreeNode * Tree::getRoot(){
+TreeNode * BTree::getRoot(){
     return root;
 }
 
 // Sets
 
 // Helpers
-void Tree::insert(int val){
+void BTree::insert(int val){
     if (root == NULL){
         root = new TreeNode(NULL,val);
     }
@@ -35,7 +35,7 @@ void Tree::insert(int val){
     }
     
 }
-void Tree::insert_rec(TreeNode * n, int val){
+void BTree::insert_rec(TreeNode * n, int val){
     // Base Case
     if (n == NULL){
         n = new TreeNode(n->getParent(),val);
@@ -65,12 +65,12 @@ void Tree::insert_rec(TreeNode * n, int val){
         }
     }
 }
-void Tree::remove(int val){
+void BTree::remove(int val){
     if (root != NULL){
         remove_rec(root, val);
     }
 }
-void Tree::remove_rec(TreeNode * n, int val){
+void BTree::remove_rec(TreeNode * n, int val){
     //Cleaning input
     if (n == NULL){
         return;
@@ -183,7 +183,7 @@ void Tree::remove_rec(TreeNode * n, int val){
         remove_rec(n->getRight(), val);
     }
 }
-int Tree::getDepth(TreeNode * nd){
+int BTree::getDepth(TreeNode * nd){
     int depth = 0;
     TreeNode * curr = nd;
     
@@ -194,7 +194,7 @@ int Tree::getDepth(TreeNode * nd){
     
     return depth;
 }
-int Tree::getHeight(TreeNode * rt){
+int BTree::getHeight(TreeNode * rt){
     //Base Case
     if (rt == NULL){
         return 0;
@@ -211,7 +211,7 @@ int Tree::getHeight(TreeNode * rt){
         }
     }
 }
-TreeNode * Tree::findMax(TreeNode * rt){
+TreeNode * BTree::findMax(TreeNode * rt){
     // traverse as far right as you can go, then return that node
     TreeNode * curr = rt;
     while(curr->hasRightChild()){
@@ -219,7 +219,7 @@ TreeNode * Tree::findMax(TreeNode * rt){
     }
     return curr;
 }
-TreeNode * Tree::findMin(TreeNode * rt){
+TreeNode * BTree::findMin(TreeNode * rt){
     // traverse as far left as you can go, then return that node
     TreeNode * curr = rt;
     while(curr->hasLeftChild()){
@@ -227,7 +227,7 @@ TreeNode * Tree::findMin(TreeNode * rt){
     }
     return curr;
 }
-TreeNode * Tree::search(TreeNode * rt, int val){
+TreeNode * BTree::search(TreeNode * rt, int val){
     TreeNode * ret = NULL;
     
     // Base Case (Not Found)
@@ -253,7 +253,7 @@ TreeNode * Tree::search(TreeNode * rt, int val){
     
     return ret;
 }
-void Tree::display(TreeNode * rt){
+void BTree::display(TreeNode * rt){
     stringstream ss;
     queue<TreeNode *> q;
     // list of sets - each list is a level

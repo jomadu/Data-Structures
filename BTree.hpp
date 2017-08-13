@@ -1,13 +1,13 @@
 //
-//  Tree.hpp
+//  BTree.hpp
 //  DataStructures
 //
 //  Created by Max Dunn on 8/4/17.
 //  Copyright © 2017 Max Dunn. All rights reserved.
 //
 
-#ifndef Tree_hpp
-#define Tree_hpp
+#ifndef BTree_hpp
+#define BTree_hpp
 
 #include <stdio.h>
 #include "TreeNode.hpp"
@@ -19,15 +19,15 @@
 
 using namespace std;
 
-class Tree{
+class BTree{
 private:
     TreeNode * root;
 public:
     // Constructors
-    Tree();
+    BTree();
     
     // Destructor
-    ~Tree();
+    ~BTree();
     
     // Gets
     TreeNode * getRoot();
@@ -47,4 +47,4 @@ public:
     void display(TreeNode * rt);
 };
 
-#endif /* Tree_hpp */
+#endif /* BTree_hpp */

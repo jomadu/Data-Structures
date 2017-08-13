@@ -11,7 +11,7 @@
 #include "DoubleLinkedList.hpp"
 #include "CircularDoubleLinkedList.hpp"
 #include "Graph.hpp"
-#include "Tree.hpp"
+#include "BTree.hpp"
 
 using namespace std;
 
@@ -415,7 +415,7 @@ void graphTest(){
 }
 
 void TreeTest(){
-    Tree tree;
+    BTree tree;
     tree.insert(10);
     tree.insert(11);
     tree.insert(8);
