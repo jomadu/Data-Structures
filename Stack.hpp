@@ -16,7 +16,7 @@
 
 class Stack{
 private:
-    LinkedList ll;
+    LinkedList _ll;
 public:
     // Constructors
     Stack();

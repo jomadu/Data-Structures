@@ -10,68 +10,68 @@
 
 // Constructors
 TreeNode::TreeNode(){
-    parent = NULL;
-    left = NULL;
-    right = NULL;
+    _parent = NULL;
+    _left = NULL;
+    _right = NULL;
 }
 TreeNode::TreeNode(TreeNode * p, int d){
-    parent = p;
-    left = NULL;
-    right = NULL;
-    data = d;
+    _parent = p;
+    _left = NULL;
+    _right = NULL;
+    _data = d;
 }
 
 // Destructor
 TreeNode::~TreeNode(){
-    delete right;
-    delete left;
+    delete _right;
+    delete _left;
 }
 
 // Gets
 int TreeNode::getData(){
-    return data;
+    return _data;
 }
 TreeNode * TreeNode::getLeft(){
-    return left;
+    return _left;
 }
 TreeNode * TreeNode::getRight(){
-    return right;
+    return _right;
 }
 TreeNode * TreeNode::getParent(){
-    return parent;
+    return _parent;
 }
 
 // Sets
 void TreeNode::setData(int d){
-    data = d;
+    _data = d;
 }
-void TreeNode::setLeft(TreeNode * n){
-    left = n;
+void TreeNode::setLeft(TreeNode * l){
+    _left = l;
 }
-void TreeNode::setRight(TreeNode * n){
-    right = n;
+void TreeNode::setRight(TreeNode * r){
+    _right = r;
 }
-void TreeNode::setParent(TreeNode * n){
-    parent = n;
+void TreeNode::setParent(TreeNode * p){
+    _parent = p;
 }
 
 // Helpers
 bool TreeNode::isLeaf(){
-    return (right == NULL)&&(left == NULL);
+    return (_right == NULL)&&(_left == NULL);
 }
 bool TreeNode::isLeftChild(){
-    return (parent->getLeft() == this);
+    return (_parent->getLeft() == this);
 }
 bool TreeNode::isRightChild(){
-    return (parent->getRight() == this);
+    return (_parent->getRight() == this);
 }
 bool TreeNode::hasLeftChild(){
-    return (left != NULL);
+    return (_left != NULL);
 }
 bool TreeNode::hasRightChild(){
-    return (right != NULL);
+    return (_right != NULL);
 }
 bool TreeNode::hasParent(){
-    return (parent != NULL);
+    return (_parent != NULL);
 }
 

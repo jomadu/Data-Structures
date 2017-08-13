@@ -23,14 +23,14 @@ Graph::~Graph(){
 // Sets
 
 // Helpers
-void Graph::addVertex(int key, int val){
-    Vertex * newVertex = new Vertex(key, val);
-    _vertices.emplace(make_pair(key, newVertex));
+void Graph::addVertex(int k, int v){
+    Vertex * newVertex = new Vertex(k, v);
+    _vertices.emplace(make_pair(k, newVertex));
 }
-void Graph::removeVertex(int key){
-    _vertices.erase(key);
+void Graph::removeVertex(int k){
+    _vertices.erase(k);
     for(unordered_map<int, Vertex *>::iterator it = _vertices.begin(); it != _vertices.end(); it++){
-        it->second->removeNbr(key);
+        it->second->removeNbr(k);
     }
 }
 void Graph::addEdge(int o, int d){
@@ -60,16 +60,14 @@ void Graph::removeEdge(int o, int d){
     }
     
 }
-Vertex * Graph::findVertex(int key){
-    if (_vertices.count(key)){
-        return _vertices.find(key)->second;
+Vertex * Graph::findVertex(int k){
+    if (_vertices.count(k)){
+        return _vertices.find(k)->second;
     }
     else{
         return NULL;
     }
 }
-
-
 bool Graph::hasEdge(int o, int d){
     Vertex * origin = _vertices.find(o)->second;
     Vertex * dest = _vertices.find(d)->second;

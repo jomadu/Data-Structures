@@ -23,8 +23,8 @@ private:
 public:
     // Constructors
     Vertex();
-    Vertex(int key);
-    Vertex(int key, int val);
+    Vertex(int k);
+    Vertex(int k, int v);
     
     // Destructor
     ~Vertex();
@@ -35,12 +35,12 @@ public:
     unordered_map<int, Vertex *> getNbrs();
 
     // Sets
-    void setVal(int val);
+    void setVal(int v);
     
     // Helpers
-    void addNbr(int key, Vertex * vtx);
-    void removeNbr(int key);
-    Vertex * findNbr(int key);
+    void addNbr(int k, Vertex * vtx);
+    void removeNbr(int k);
+    Vertex * findNbr(int k);
 };
 
 #endif /* Vertex_hpp */

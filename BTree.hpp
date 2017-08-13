@@ -21,7 +21,7 @@ using namespace std;
 
 class BTree{
 private:
-    TreeNode * root;
+    TreeNode * _root;
 public:
     // Constructors
     BTree();
@@ -35,15 +35,15 @@ public:
     // Sets
     
     // Helpers
-    void insert(int val);
-    void insert_rec(TreeNode * n, int val);
-    void remove(int val);
-    void remove_rec(TreeNode * n, int val);
-    int getHeight(TreeNode * rt);
-    int getDepth(TreeNode * rt);
+    void insert(int v);
+    void insert_rec(TreeNode * n, int v);
+    void remove(int v);
+    void remove_rec(TreeNode * n, int v);
+    int getHeight(TreeNode * n);
+    int getDepth(TreeNode * n);
     TreeNode * findMax(TreeNode * rt);
     TreeNode * findMin(TreeNode * rt);
-    TreeNode * search(TreeNode * rt, int val);
+    TreeNode * search(TreeNode * rt, int v);
     void display(TreeNode * rt);
 };
 

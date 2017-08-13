@@ -14,10 +14,10 @@
 class TreeNode
 {
 private:
-    int data;
-    TreeNode * parent;
-    TreeNode * left;
-    TreeNode * right;
+    int _data;
+    TreeNode * _parent;
+    TreeNode * _left;
+    TreeNode * _right;
 public:
     // Constructors
     TreeNode();
@@ -34,9 +34,9 @@ public:
     
     // Sets
     void setData(int d);
-    void setLeft(TreeNode * n);
-    void setRight(TreeNode * n);
-    void setParent(TreeNode * n);
+    void setLeft(TreeNode * l);
+    void setRight(TreeNode * r);
+    void setParent(TreeNode * p);
     
     // Helpers
     bool isLeaf();

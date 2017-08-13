@@ -16,7 +16,7 @@
 
 class Queue{
 private:
-    LinkedList ll;
+    LinkedList _ll;
 public:
     // Constructors
     Queue();

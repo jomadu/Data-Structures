@@ -14,9 +14,9 @@
 class Node
 {
 private:
-    int data;
-    Node * next;
-    Node * prev;
+    int _data;
+    Node * _next;
+    Node * _prev;
 public:
     // Constructors
     Node();
@@ -32,8 +32,8 @@ public:
 
     // Sets
     void setData(int d);
-    void setNext(Node * n);
-    void setPrev(Node * n);
+    void setNext(Node * next);
+    void setPrev(Node * prev);
     
     // Helpers
 };

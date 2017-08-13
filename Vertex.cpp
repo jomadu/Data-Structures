@@ -11,12 +11,12 @@
 // Constructors
 Vertex::Vertex(){
 }
-Vertex::Vertex(int key){
-    _key = key;
+Vertex::Vertex(int k){
+    _key = k;
 }
-Vertex::Vertex(int key, int val){
-    _key = key;
-    _val = val;
+Vertex::Vertex(int k, int v){
+    _key = k;
+    _val = v;
 }
 
 // Destructor
@@ -42,14 +42,14 @@ void Vertex::setVal(int d){
 }
 
 // Helpers
-void Vertex::addNbr(int key, Vertex * vtx){
-    nbrs.emplace(make_pair(key, vtx));
+void Vertex::addNbr(int k, Vertex * vtx){
+    nbrs.emplace(make_pair(k, vtx));
 }
-void Vertex::removeNbr(int key){
-    nbrs.erase(key);
+void Vertex::removeNbr(int k){
+    nbrs.erase(k);
 }
-Vertex * Vertex::findNbr(int key){
-    unordered_map<int, Vertex *>::iterator it = nbrs.find(key);
+Vertex * Vertex::findNbr(int k){
+    unordered_map<int, Vertex *>::iterator it = nbrs.find(k);
     if (it == nbrs.end()){
         return NULL;
     }

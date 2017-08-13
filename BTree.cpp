@@ -15,76 +15,76 @@ BTree::BTree(){
 
 // Destructor
 BTree::~BTree(){
-    delete root;
+    delete _root;
 }
 
 // Gets
 TreeNode * BTree::getRoot(){
-    return root;
+    return _root;
 }
 
 // Sets
 
 // Helpers
-void BTree::insert(int val){
-    if (root == NULL){
-        root = new TreeNode(NULL,val);
+void BTree::insert(int v){
+    if (_root == NULL){
+        _root = new TreeNode(NULL,v);
     }
     else{
-        insert_rec(root, val);
+        insert_rec(_root, v);
     }
     
 }
-void BTree::insert_rec(TreeNode * n, int val){
+void BTree::insert_rec(TreeNode * n, int v){
     // Base Case
     if (n == NULL){
-        n = new TreeNode(n->getParent(),val);
+        n = new TreeNode(n->getParent(),v);
     }
     // Look Left
-    else if (n->getData() >= val){
+    else if (n->getData() >= v){
         //Insert to empty child?
         if (!n->hasLeftChild()){
-            TreeNode * c = new TreeNode(n, val);
+            TreeNode * c = new TreeNode(n, v);
             n->setLeft(c);
         }
         //Recurse
         else{
-            insert_rec(n->getLeft(), val);
+            insert_rec(n->getLeft(), v);
         }
     }
     // Look Right
     else{
         //Insert to empty child?
         if (!n->hasRightChild()){
-            TreeNode * c = new TreeNode(n, val);
+            TreeNode * c = new TreeNode(n, v);
             n->setRight(c);
         }
         //Recurse
         else{
-            insert_rec(n->getRight(), val);
+            insert_rec(n->getRight(), v);
         }
     }
 }
-void BTree::remove(int val){
-    if (root != NULL){
-        remove_rec(root, val);
+void BTree::remove(int v){
+    if (_root != NULL){
+        remove_rec(_root, v);
     }
 }
-void BTree::remove_rec(TreeNode * n, int val){
+void BTree::remove_rec(TreeNode * n, int v){
     //Cleaning input
     if (n == NULL){
         return;
     }
     //Check if n is the node we are searching for
-    else if (n->getData() == val){
+    else if (n->getData() == v){
         //Case of has no children
         if (n->isLeaf()){
-            //n is root
-            if (n == root){
+            //n is _root
+            if (n == _root){
                 delete n;
-                root = NULL;
+                _root = NULL;
             }
-            //n is not root
+            //n is not _root
             else{
                 if (n->isLeftChild()){
                     n->getParent()->setLeft(NULL);
@@ -105,14 +105,14 @@ void BTree::remove_rec(TreeNode * n, int val){
                 c = n->getRight();
             }
             
-            //n is root
-            if (n == root){
+            //n is _root
+            if (n == _root){
                 c->setParent(NULL);
                 delete n;
-                root = c;
+                _root = c;
             }
             
-            //n is not root
+            //n is not _root
             else{
                 if (n->isLeftChild()){
                     n->getParent()->setLeft(c);
@@ -149,7 +149,7 @@ void BTree::remove_rec(TreeNode * n, int val){
                 newSubTreeRoot = rightSubtreeMin;
             }
             
-            //Adjust the root node of the subtree
+            //Adjust the _root node of the subtree
             //chop off the leaf
             if (newSubTreeRoot->isLeftChild()){
                 newSubTreeRoot->getParent()->setLeft(NULL);
@@ -162,9 +162,9 @@ void BTree::remove_rec(TreeNode * n, int val){
             newSubTreeRoot->setRight(n->getRight());
             
             //address if the subtree is full tree
-            if (n == root){
+            if (n == _root){
                 newSubTreeRoot->setParent(NULL);
-                root = newSubTreeRoot;
+                _root = newSubTreeRoot;
             }
             else{
                 newSubTreeRoot->setParent(n->getParent());
@@ -173,19 +173,19 @@ void BTree::remove_rec(TreeNode * n, int val){
         }
     }
     // Look Left
-    else if (n->getData() >= val){
+    else if (n->getData() >= v){
         // Recurse
-        remove_rec(n->getLeft(), val);
+        remove_rec(n->getLeft(), v);
     }
     // Look Right
-    else if (n->getData() < val){
+    else if (n->getData() < v){
         // Recurse
-        remove_rec(n->getRight(), val);
+        remove_rec(n->getRight(), v);
     }
 }
-int BTree::getDepth(TreeNode * nd){
+int BTree::getDepth(TreeNode * n){
     int depth = 0;
-    TreeNode * curr = nd;
+    TreeNode * curr = n;
     
     while (curr->hasParent()){
         curr = curr->getParent();
@@ -194,14 +194,14 @@ int BTree::getDepth(TreeNode * nd){
     
     return depth;
 }
-int BTree::getHeight(TreeNode * rt){
+int BTree::getHeight(TreeNode * n){
     //Base Case
-    if (rt == NULL){
+    if (n == NULL){
         return 0;
     }
     else{
-        int leftHeight = getHeight(rt->getLeft());
-        int rightHeight = getHeight(rt->getRight());
+        int leftHeight = getHeight(n->getLeft());
+        int rightHeight = getHeight(n->getRight());
         
         if (leftHeight > rightHeight){
             return (leftHeight + 1);
@@ -227,7 +227,7 @@ TreeNode * BTree::findMin(TreeNode * rt){
     }
     return curr;
 }
-TreeNode * BTree::search(TreeNode * rt, int val){
+TreeNode * BTree::search(TreeNode * rt, int v){
     TreeNode * ret = NULL;
     
     // Base Case (Not Found)
@@ -235,16 +235,16 @@ TreeNode * BTree::search(TreeNode * rt, int val){
         ret = NULL;
     }
     // Base Case (Found)
-    else if (rt->getData() == val){
+    else if (rt->getData() == v){
         ret = rt;
     }
     // Recurse Left
-    else if (rt->getData() >= val){
-        ret = search(rt->getLeft(), val);
+    else if (rt->getData() >= v){
+        ret = search(rt->getLeft(), v);
     }
     // Recurse Right
-    else if (rt->getData() < val){
-        ret = search(rt->getRight(), val);
+    else if (rt->getData() < v){
+        ret = search(rt->getRight(), v);
     }
     else{
         // Something has gone horribly wrong

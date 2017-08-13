@@ -33,11 +33,11 @@ public:
     // Sets
     
     // Helpers
-    void addVertex(int key, int d);
-    void removeVertex(int key);
+    void addVertex(int k, int v);
+    void removeVertex(int k);
     void addEdge(int o, int d);
     void removeEdge(int o, int d);
-    Vertex * findVertex(int key);
+    Vertex * findVertex(int k);
     bool hasEdge(int o, int d);
 };
 
