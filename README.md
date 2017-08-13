@@ -19,9 +19,9 @@ Supports `BTree` objects
 ### Vertex
 Supports `Graph` objects
 #### Private Members
-- `int _key'
-- `int _val'
-- `unordered_map<int, Vertex *> nbrs'
+- `int _key`
+- `int _val`
+- `unordered_map<int, Vertex *> nbrs`
 ### LinkedList
 Singly Linked List implemented using `Node`
 #### Private Members
