@@ -12,10 +12,10 @@ Node::Node(){
     _next = NULL;
     _prev = NULL;
 }
-Node::Node(int d){
+Node::Node(int data){
     _next = NULL;
     _prev = NULL;
-    _data = d;
+    _data = data;
 }
 
 // Destructor

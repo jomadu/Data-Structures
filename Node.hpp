@@ -20,7 +20,7 @@ private:
 public:
     // Constructors
     Node();
-    Node(int d);
+    Node(int data);
     
     // Destructor
     ~Node();

@@ -15,36 +15,36 @@
 
 // Constructors
 LinkedList::LinkedList(){
-    size = 0;
-    head = NULL;
-    tail = NULL;
+    _size = 0;
+    _head = NULL;
+    _tail = NULL;
 }
 
 // Destructor
 LinkedList::~LinkedList(){
-    Node * curr = head;
-    Node * next = head;
+    Node * curr = _head;
+    Node * next = _head;
     while (curr != NULL){
         next = curr->getNext();
         delete curr;
         curr = next;
     }
-    head = NULL;
-    tail = NULL;
+    _head = NULL;
+    _tail = NULL;
 }
 
 // Gets
 int LinkedList::getSize(){
-    return size;
+    return _size;
 }
 
 // Sets
 
 // Helpers
 int LinkedList::getData(int idx){
-    Node * curr = head;
+    Node * curr = _head;
     
-    if (idx < 0 || idx >= size)
+    if (idx < 0 || idx >= _size)
         throw out_of_range("Data retrieval idx out of range.");
     
     for (int i = 0; i < idx; i++){
@@ -52,74 +52,74 @@ int LinkedList::getData(int idx){
     }
     return curr->getData();
 }
-void LinkedList::setData(int idx, int d){
-    Node * curr = head;
+void LinkedList::setData(int idx, int data){
+    Node * curr = _head;
     
-    if (idx < 0 || idx >= size)
+    if (idx < 0 || idx >= _size)
         throw out_of_range("Data retrieval idx out of range.");
     
     for (int i = 0; i < idx; i++){
         curr = curr->getNext();
     }
     
-    curr->setData(d);
+    curr->setData(data);
 }
-void LinkedList::insertTail(int d){
-    Node * newNode = new Node(d);
+void LinkedList::append(int data){
+    Node * newNode = new Node(data);
 
     if (this->isEmpty()){
-        head = newNode;
-        tail = newNode;
+        _head = newNode;
+        _tail = newNode;
     }
     else{
-        tail->setNext(newNode);
-        tail = newNode;
+        _tail->setNext(newNode);
+        _tail = newNode;
     }           
 
-    size++;
+    _size++;
 }
-void LinkedList::insertHead(int d){
-    Node * newNode = new Node(d);
+void LinkedList::prepend(int data){
+    Node * newNode = new Node(data);
 
     if (this->isEmpty()){
-        head = newNode;
-        tail = newNode;
+        _head = newNode;
+        _tail = newNode;
     }
     else{
-        newNode->setNext(head);
-        head = newNode;
+        newNode->setNext(_head);
+        _head = newNode;
     }
 
-    size++;
+    _size++;
 }
-void LinkedList::insert(int idx, int d){
+void LinkedList::insert(int idx, int data){
     // Input Cleansing
-    if (idx < 0 || idx > size)
+    if (idx < 0 || idx > _size)
         throw out_of_range("Insertion idx out of range.");
 
     // Insert as a insertHead
     if (idx == 0){
-        insertHead(d);
+        prepend(data);
     }
     
-    // Insert as an insertTail
-    else if (idx == size){
-        insertTail(d);
+    // Insert as an insertTail (really append)
+    else if (idx == _size){
+        append(data);
     }
     
     // Insert in the middle
     // i.e. idx element of [1, size-1]
     else{
-        Node * newNode = new Node(d);
-        Node * curr = head;
-        Node * prev = head;
+        Node * newNode = new Node(data);
+        Node * curr = _head;
+        Node * prev = _head;
         for (int i = 0; i < idx; i++){
             prev = curr;
             curr = curr->getNext();
         }
         prev->setNext(newNode);
         newNode->setNext(curr);
-        size++;
+        _size++;
     }
 
 }
@@ -129,19 +129,19 @@ void LinkedList::removeHead(){
         return;
     }
     // Single Node in List
-    else if (head == tail){
-        delete head;
-        head = NULL;
-        tail = NULL;
+    else if (_head == _tail){
+        delete _head;
+        _head = NULL;
+        _tail = NULL;
     }
     // Multiple Nodes in list 
     else{
-        Node * second = head->getNext();
-        delete head;
-        head = second;
+        Node * second = _head->getNext();
+        delete _head;
+        _head = second;
     }
 
-    size --;
+    _size --;
 }
 void LinkedList::removeTail(){
     // Empty List
@@ -149,29 +149,29 @@ void LinkedList::removeTail(){
         return;
     }
     // Single Node in List
-    else if (head == tail){
-        delete tail;
-        head = NULL;
-        tail = NULL;
+    else if (_head == _tail){
+        delete _tail;
+        _head = NULL;
+        _tail = NULL;
     }
     // Multiple Nodes in List
     else{
-        Node * curr = head;
-        Node * prev = head;
+        Node * curr = _head;
+        Node * prev = _head;
         while (curr->getNext() != NULL){
             prev = curr;
             curr = curr->getNext();        
         }
         delete curr;
         prev->setNext(NULL);
-        tail = prev;
+        _tail = prev;
     }
 
-    size --;
+    _size --;
 }
 void LinkedList::remove(int idx){
     // Input Cleansing
-    if (idx < 0 || idx >= size)
+    if (idx < 0 || idx >= _size)
         throw out_of_range("Removal idx out of range.");
 
     // Remove from head
@@ -179,37 +179,37 @@ void LinkedList::remove(int idx){
         removeHead();
     }
     // Remove from tail
-    else if (idx == (size-1)){
+    else if (idx == (_size-1)){
         removeTail();
     }
     // Remove from middle
     // i.e. idx element of [1, size-2]
     else{
-        Node * curr = head;
-        Node * prev = head;
+        Node * curr = _head;
+        Node * prev = _head;
         for (int i = 0; i < idx; i++){
             prev = curr;
             curr = curr->getNext();        
         }
         prev->setNext(curr->getNext());
         delete curr;
-        size --;
+        _size --;
     }
 }
 void LinkedList::display(){
     stringstream ss;
-    Node * curr = head;
+    Node * curr = _head;
     while (curr != NULL){
         ss << "[" + to_string(curr->getData()) + "] -> ";
         curr = curr->getNext();
     }
     cout << ss.str() + "EOL\n";
 }
-Node * LinkedList::search(int d){
+Node * LinkedList::search(int data){
 
-    Node * curr = head;
+    Node * curr = _head;
     while (curr != NULL){
-        if (curr->getData() == d){
+        if (curr->getData() == data){
             return curr;
         }
         else{
@@ -220,7 +220,7 @@ Node * LinkedList::search(int d){
 }
 
 bool LinkedList::isEmpty(){
-    return ((head == NULL) && (tail == NULL));
+    return ((_head == NULL) && (_tail == NULL));
 }
 
 #endif
