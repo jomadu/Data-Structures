@@ -14,113 +14,133 @@
 
 // Constructors
 DoubleLinkedList::DoubleLinkedList(){
-    size = 0;
-    head = NULL;
-    tail = NULL;
+    _size = 0;
+    _head = NULL;
+    _tail = NULL;
 }
 
 // Destructor
 DoubleLinkedList::~DoubleLinkedList(){
-    Node * curr = head;
-    Node * next = head;
+    Node * curr = _head;
+    Node * next = _head;
     while (curr != NULL){
         next = curr->getNext();
         delete curr;
         curr = next;
     }
-    head = NULL;
-    tail = NULL;
+    _head = NULL;
+    _tail = NULL;
 }
 
 // Gets
 int DoubleLinkedList::getSize(){
-    return size;
+    return _size;
 }
 
 // Sets
 
 // Helpers
 int DoubleLinkedList::getData(int idx){
-    Node * curr = head;
+    Node * curr;
     
-    if (idx < 0 || idx >= size)
+    if (idx < 0 || idx >= _size)
         throw out_of_range("Data retrieval idx out of range.");
     
-    for (int i = 0; i < idx; i++){
-        curr = curr->getNext();
+    if (idx < _size/2){
+        curr = _head;
+        for (int i = 0; i < idx; i++){
+            curr = curr->getNext();
+        }
+    }
+    else{
+        curr = _tail;
+        for (int i = _size; i >= idx; i--){
+            curr = curr->getPrev();
+        }
     }
     return curr->getData();
 }
 
-void DoubleLinkedList::setData(int idx, int d){
-    Node * curr = head;
+void DoubleLinkedList::setData(int idx, int data){
+    Node * curr = _head;
     
-    if (idx < 0 || idx >= size)
+    if (idx < 0 || idx >= _size)
         throw out_of_range("Data retrieval idx out of range.");
     
     for (int i = 0; i < idx; i++){
         curr = curr->getNext();
     }
     
-    curr->setData(d);
+    curr->setData(data);
 }
-void DoubleLinkedList::insertTail(int d){
-    Node * newNode = new Node(d);
+void DoubleLinkedList::append(int data){
+    Node * newNode = new Node(data);
 
     if (this->isEmpty()){
-        head = newNode;
-        tail = newNode;
+        _head = newNode;
+        _tail = newNode;
     }
     else{
-        tail->setNext(newNode);
-        newNode->setPrev(tail);
-        tail = newNode;
+        _tail->setNext(newNode);
+        newNode->setPrev(_tail);
+        _tail = newNode;
     }
 
-    size++;
+    _size++;
 }
-void DoubleLinkedList::insertHead(int d){
-    Node * newNode = new Node(d);
+void DoubleLinkedList::prepend(int data){
+    Node * newNode = new Node(data);
 
-    if (head == NULL){
-        head = newNode;
-        tail = newNode;
+    if (_head == NULL){
+        _head = newNode;
+        _tail = newNode;
     }
     else{
-        newNode->setNext(head);
-        head->setPrev(newNode);
-        head = newNode;
+        newNode->setNext(_head);
+        _head->setPrev(newNode);
+        _head = newNode;
     }
 
-    size++;
+    _size++;
 }
-void DoubleLinkedList::insert(int idx, int d){
+void DoubleLinkedList::insert(int idx, int data){
     // Input Cleansing
-    if (idx < 0 || idx > size)
+    if (idx < 0 || idx > _size)
         throw out_of_range("Insertion idx out of range.");
 
     // Insert as a insertHead
     if (idx == 0){
-        insertHead(d);
+        prepend(data);
     }
     // Insert as an insertTail
-    else if (idx == size){
-        insertTail(d);
+    else if (idx == _size){
+        append(data);
     }
     // Insert in the middle
     else{
-        Node * newNode = new Node(d);
-        Node * curr = head;
-        Node * prev = head;
-        for (int i = 0; i < idx; i++){
-            prev = curr;
-            curr = curr->getNext();
+        Node * newNode = new Node(data);
+        Node * curr;
+        Node * prev;
+        
+        if (idx < _size/2){
+            curr = _head;
+            for (int i = 0; i < idx; i++){
+                curr = curr->getNext();
+            }
+            prev = curr->getPrev();
+        }
+        else{
+            curr = _tail;
+            for (int i = _size; i >= idx; i--){
+                curr = curr->getPrev();
+            }
+            prev = curr->getPrev();
         }
         prev->setNext(newNode);
         newNode->setPrev(prev);
         curr->setPrev(newNode);
         newNode->setNext(curr);
-        size++;
+        _size++;
     }
 }
 void DoubleLinkedList::removeHead(){
@@ -129,20 +149,20 @@ void DoubleLinkedList::removeHead(){
         return;
     }
     // Single Node in List
-    else if (head == tail){
-        delete head;
-        head = NULL;
-        tail = NULL;
+    else if (_head == _tail){
+        delete _head;
+        _head = NULL;
+        _tail = NULL;
     }
     // Multiple Nodes in list 
     else{
-        Node * next = head->getNext();
-        delete head;
+        Node * next = _head->getNext();
+        delete _head;
         next->setPrev(NULL);
-        head = next;
+        _head = next;
     }
 
-    size --;
+    _size --;
 }
 void DoubleLinkedList::removeTail(){
     // Empty List
@@ -150,24 +170,24 @@ void DoubleLinkedList::removeTail(){
         return;
     }
     // Single Node in List
-    else if (head == tail){
-        delete tail;
-        head = NULL;
-        tail = NULL;
+    else if (_head == _tail){
+        delete _tail;
+        _head = NULL;
+        _tail = NULL;
     }
     // Multiple Nodes in List
     else{
-        Node * prev = tail->getPrev();
-        delete tail;
+        Node * prev = _tail->getPrev();
+        delete _tail;
         prev->setNext(NULL);
-        tail = prev;
+        _tail = prev;
     }
 
-    size --;
+    _size --;
 }
 void DoubleLinkedList::remove(int idx){
     // Input Cleansing
-    if (idx < 0 || idx >= size)
+    if (idx < 0 || idx >= _size)
         throw out_of_range("Removal idx out of range.");
 
     // Remove from head
@@ -175,29 +195,29 @@ void DoubleLinkedList::remove(int idx){
         removeHead();
     }
     // Remove from tail
-    else if (idx == (size-1)){
+    else if (idx == (_size-1)){
         removeTail();
     }
     // Remove from middle
     // i.e. idx element of [1, size-2]
     else{
-        Node * curr = head;
-        Node * prev = head;
-        Node * next = head;
+        Node * curr = _head;
+        Node * prev;
+        Node * next;
         for (int i = 0; i < idx; i++){
-            prev = curr;
-            curr = curr->getNext();        
+            curr = curr->getNext();
         }
+        prev = curr->getPrev();
         next = curr->getNext();
         prev->setNext(next);
         next->setPrev(prev);
         delete curr;
-        size --;
+        _size --;
     }
 }
 void DoubleLinkedList::display(){
     stringstream ss;
-    Node * curr = head;
+    Node * curr = _head;
     while (curr != NULL){
         ss << "[" + to_string(curr->getData()) + "] -> ";
         curr = curr->getNext();
@@ -205,10 +225,10 @@ void DoubleLinkedList::display(){
     cout << ss.str() + "EOL\n";
 }
 
-Node * DoubleLinkedList::search(int d){
-    Node * curr = head;
+Node * DoubleLinkedList::search(int data){
+    Node * curr = _head;
     while (curr != NULL){
-        if (curr->getData() == d){
+        if (curr->getData() == data){
             return curr;
         }
         else{
@@ -218,6 +238,6 @@ Node * DoubleLinkedList::search(int d){
     return NULL;
 }
 bool DoubleLinkedList::isEmpty(){
-    return ((head == NULL) && (tail == NULL));
+    return ((_head == NULL) && (_tail == NULL));
 }
 #endif

@@ -18,9 +18,9 @@ using namespace std;
 class DoubleLinkedList
 {
 private:
-    int size;
-    Node * head;
-    Node * tail;
+    int _size;
+    Node * _head;
+    Node * _tail;
 public:
     // Constructors
     DoubleLinkedList();
@@ -35,14 +35,14 @@ public:
     
     // Helpers
     int getData(int idx);
-    void setData(int idx, int d);
-    void insertTail(int d);
-    void insertHead(int d);
-    void insert(int idx, int d);
+    void setData(int idx, int data);
+    void append(int data);
+    void prepend(int data);
+    void insert(int idx, int data);
     void removeHead();
     void removeTail();
     void remove(int idx);
     void display();
-    Node * search(int d);
+    Node * search(int data);
     bool isEmpty();
 };
