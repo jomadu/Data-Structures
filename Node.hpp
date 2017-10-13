@@ -31,7 +31,7 @@ public:
     Node * getPrev();
 
     // Sets
-    void setData(int d);
+    void setData(int data);
     void setNext(Node * next);
     void setPrev(Node * prev);
     

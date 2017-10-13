@@ -37,8 +37,8 @@ Node * Node::getPrev(){
 }
 
 // Sets
-void Node::setData(int d){
-    _data = d;
+void Node::setData(int data){
+    _data = data;
 }
 
 void Node::setNext(Node * next){
