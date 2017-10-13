@@ -10,9 +10,11 @@
 // Constructors
 Node::Node(){
     _next = NULL;
+    _prev = NULL;
 }
 Node::Node(int d){
     _next = NULL;
+    _prev = NULL;
     _data = d;
 }
 
