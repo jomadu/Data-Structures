@@ -59,7 +59,7 @@ int CircularDoubleLinkedList::getData(int idx){
     }
     return curr->getData();
 }
-void CircularDoubleLinkedList::setData(int idx, int d){
+void CircularDoubleLinkedList::setData(int idx, int data){
     Node * curr;
     
     if (idx < 0 || idx >= _size)
