@@ -9,13 +9,13 @@
 #include "Node.hpp"
 // Constructors
 Node::Node(){
-    _next = NULL;
-    _prev = NULL;
+    next_ = NULL;
+    prev_ = NULL;
 }
 Node::Node(int data){
-    _next = NULL;
-    _prev = NULL;
-    _data = data;
+    next_ = NULL;
+    prev_ = NULL;
+    data_ = data;
 }
 
 // Destructor
@@ -25,28 +25,28 @@ Node::~Node(){
 
 // Gets
 int Node::getData(){
-    return _data;
+    return data_;
 }
 
 Node * Node::getNext(){
-    return _next;
+    return next_;
 }
 
 Node * Node::getPrev(){
-    return _prev;
+    return prev_;
 }
 
 // Sets
 void Node::setData(int data){
-    _data = data;
+    data_ = data;
 }
 
 void Node::setNext(Node * next){
-    _next = next;
+    next_ = next;
 }
 
 void Node::setPrev(Node * prev){
-    _prev = prev;
+    prev_ = prev;
 }
 
 // Helpers

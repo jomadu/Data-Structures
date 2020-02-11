@@ -20,7 +20,7 @@ using namespace std;
 
 class Graph{
 private:
-    unordered_map<int, Vertex *> _vertices;
+    unordered_map<int, Vertex *> verticies_;
 public:
     // Constructors
     Graph();

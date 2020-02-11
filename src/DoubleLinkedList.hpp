@@ -1,5 +1,5 @@
 //
-//  CircularDoubleLinkedList.hpp
+//  DoubleLinkedList.hpp
 //  DataStructures
 //
 //  Created by Max Dunn on 7/26/17.
@@ -15,18 +15,18 @@
 
 using namespace std;
 
-class CircularDoubleLinkedList
+class DoubleLinkedList
 {
 private:
-    int _size;
-    Node * _head;
-    Node * _tail;
+    int size_;
+    Node * head_;
+    Node * tail_;
 public:
     // Constructors
-    CircularDoubleLinkedList();
+    DoubleLinkedList();
     
     // Destructor
-    ~CircularDoubleLinkedList();
+    ~DoubleLinkedList();
     
     // Gets
     int getSize();

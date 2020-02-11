@@ -21,7 +21,7 @@ using namespace std;
 
 class BTree{
 private:
-    TreeNode * _root;
+    TreeNode * root_;
 public:
     // Constructors
     BTree();

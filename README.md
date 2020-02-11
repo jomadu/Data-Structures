@@ -6,21 +6,21 @@ I wanted to create a library of data structures in c++...so I did!
 ### Node
 Supports `LinkedList`, `DoubleLinkedList`, and `CircularDoubleLinkedList` objects.
 #### Private Members
-- `int _data`
-- `Node * _prev`
-- `Node * _next`
+- `int data_`
+- `Node * prev_`
+- `Node * next_`
 ### TreeNode
 Supports `BTree` objects
 #### Private Members
-- `int _data`
-- `TreeNode * _parent`
-- `TreeNode * _left`
-- `TreeNode * _right`
+- `int data_`
+- `TreeNode * parent_`
+- `TreeNode * left_`
+- `TreeNode * right_`
 ### Vertex
 Supports `Graph` objects
 #### Private Members
-- `int _key`
-- `int _val`
+- `int key_`
+- `int val_`
 - `unordered_map<int, Vertex *> nbrs`
 ### LinkedList
 Singly Linked List implemented using `Node`
@@ -43,16 +43,16 @@ Doubly Linked List implemented using `Node`
 ### Stack
 Stack implemented using `LinkedList`
 #### Private Members
-- `LinkedList _ll`
+- `LinkedList ll_`
 ### Queue
 Queue implemented using `LinkedList`
 #### Private Members
-- `LinkedList _ll`
+- `LinkedList ll_`
 ### Graph
 Undirected graph implemented using `Vertex`
 #### Private Members
-- `unordered_map<int, Vertex *> _vertices`
+- `unordered_map<int, Vertex *> verticies_`
 ### BTree
 Binary Tree implemented using `TreeNode`
 #### Private Members
-- `TreeNode * _root`
+- `TreeNode * root_`

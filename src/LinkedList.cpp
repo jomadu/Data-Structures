@@ -15,36 +15,36 @@
 
 // Constructors
 LinkedList::LinkedList(){
-    _size = 0;
-    _head = NULL;
-    _tail = NULL;
+    size_ = 0;
+    head_ = NULL;
+    tail_ = NULL;
 }
 
 // Destructor
 LinkedList::~LinkedList(){
-    Node * curr = _head;
-    Node * next = _head;
+    Node * curr = head_;
+    Node * next = head_;
     while (curr != NULL){
         next = curr->getNext();
         delete curr;
         curr = next;
     }
-    _head = NULL;
-    _tail = NULL;
+    head_ = NULL;
+    tail_ = NULL;
 }
 
 // Gets
 int LinkedList::getSize(){
-    return _size;
+    return size_;
 }
 
 // Sets
 
 // Helpers
 int LinkedList::getData(int idx){
-    Node * curr = _head;
+    Node * curr = head_;
     
-    if (idx < 0 || idx >= _size)
+    if (idx < 0 || idx >= size_)
         throw out_of_range("Data retrieval idx out of range.");
     
     for (int i = 0; i < idx; i++){
@@ -53,9 +53,9 @@ int LinkedList::getData(int idx){
     return curr->getData();
 }
 void LinkedList::setData(int idx, int data){
-    Node * curr = _head;
+    Node * curr = head_;
     
-    if (idx < 0 || idx >= _size)
+    if (idx < 0 || idx >= size_)
         throw out_of_range("Data retrieval idx out of range.");
     
     for (int i = 0; i < idx; i++){
@@ -68,33 +68,33 @@ void LinkedList::append(int data){
     Node * newNode = new Node(data);
 
     if (this->isEmpty()){
-        _head = newNode;
-        _tail = newNode;
+        head_ = newNode;
+        tail_ = newNode;
     }
     else{
-        _tail->setNext(newNode);
-        _tail = newNode;
+        tail_->setNext(newNode);
+        tail_ = newNode;
     }           
 
-    _size++;
+    size_++;
 }
 void LinkedList::prepend(int data){
     Node * newNode = new Node(data);
 
     if (this->isEmpty()){
-        _head = newNode;
-        _tail = newNode;
+        head_ = newNode;
+        tail_ = newNode;
     }
     else{
-        newNode->setNext(_head);
-        _head = newNode;
+        newNode->setNext(head_);
+        head_ = newNode;
     }
 
-    _size++;
+    size_++;
 }
 void LinkedList::insert(int idx, int data){
     // Input Cleansing
-    if (idx < 0 || idx > _size)
+    if (idx < 0 || idx > size_)
         throw out_of_range("Insertion idx out of range.");
 
     // Insert as a insertHead
@@ -103,7 +103,7 @@ void LinkedList::insert(int idx, int data){
     }
     
     // Insert as an insertTail (really append)
-    else if (idx == _size){
+    else if (idx == size_){
         append(data);
     }
     
@@ -111,15 +111,15 @@ void LinkedList::insert(int idx, int data){
     // i.e. idx element of [1, size-1]
     else{
         Node * newNode = new Node(data);
-        Node * curr = _head;
-        Node * prev = _head;
+        Node * curr = head_;
+        Node * prev = head_;
         for (int i = 0; i < idx; i++){
             prev = curr;
             curr = curr->getNext();
         }
         prev->setNext(newNode);
         newNode->setNext(curr);
-        _size++;
+        size_++;
     }
 
 }
@@ -129,19 +129,19 @@ void LinkedList::removeHead(){
         return;
     }
     // Single Node in List
-    else if (_head == _tail){
-        delete _head;
-        _head = NULL;
-        _tail = NULL;
+    else if (head_ == tail_){
+        delete head_;
+        head_ = NULL;
+        tail_ = NULL;
     }
     // Multiple Nodes in list 
     else{
-        Node * second = _head->getNext();
-        delete _head;
-        _head = second;
+        Node * second = head_->getNext();
+        delete head_;
+        head_ = second;
     }
 
-    _size --;
+    size_ --;
 }
 void LinkedList::removeTail(){
     // Empty List
@@ -149,29 +149,29 @@ void LinkedList::removeTail(){
         return;
     }
     // Single Node in List
-    else if (_head == _tail){
-        delete _tail;
-        _head = NULL;
-        _tail = NULL;
+    else if (head_ == tail_){
+        delete tail_;
+        head_ = NULL;
+        tail_ = NULL;
     }
     // Multiple Nodes in List
     else{
-        Node * curr = _head;
-        Node * prev = _head;
+        Node * curr = head_;
+        Node * prev = head_;
         while (curr->getNext() != NULL){
             prev = curr;
             curr = curr->getNext();        
         }
         delete curr;
         prev->setNext(NULL);
-        _tail = prev;
+        tail_ = prev;
     }
 
-    _size --;
+    size_ --;
 }
 void LinkedList::remove(int idx){
     // Input Cleansing
-    if (idx < 0 || idx >= _size)
+    if (idx < 0 || idx >= size_)
         throw out_of_range("Removal idx out of range.");
 
     // Remove from head
@@ -179,26 +179,26 @@ void LinkedList::remove(int idx){
         removeHead();
     }
     // Remove from tail
-    else if (idx == (_size-1)){
+    else if (idx == (size_-1)){
         removeTail();
     }
     // Remove from middle
     // i.e. idx element of [1, size-2]
     else{
-        Node * curr = _head;
-        Node * prev = _head;
+        Node * curr = head_;
+        Node * prev = head_;
         for (int i = 0; i < idx; i++){
             prev = curr;
             curr = curr->getNext();        
         }
         prev->setNext(curr->getNext());
         delete curr;
-        _size --;
+        size_ --;
     }
 }
 void LinkedList::display(){
     stringstream ss;
-    Node * curr = _head;
+    Node * curr = head_;
     while (curr != NULL){
         ss << "[" + to_string(curr->getData()) + "] -> ";
         curr = curr->getNext();
@@ -207,7 +207,7 @@ void LinkedList::display(){
 }
 Node * LinkedList::search(int data){
 
-    Node * curr = _head;
+    Node * curr = head_;
     while (curr != NULL){
         if (curr->getData() == data){
             return curr;
@@ -220,7 +220,7 @@ Node * LinkedList::search(int data){
 }
 
 bool LinkedList::isEmpty(){
-    return ((_head == NULL) && (_tail == NULL));
+    return ((head_ == NULL) && (tail_ == NULL));
 }
 
 #endif

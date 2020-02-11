@@ -1,5 +1,5 @@
 //
-//  DoubleLinkedList.hpp
+//  LinkedList.hpp
 //  DataStructures
 //
 //  Created by Max Dunn on 7/26/17.
@@ -15,18 +15,18 @@
 
 using namespace std;
 
-class DoubleLinkedList
+class LinkedList
 {
 private:
-    int _size;
-    Node * _head;
-    Node * _tail;
+    int size_;
+    Node * head_;
+    Node * tail_;
 public:
     // Constructors
-    DoubleLinkedList();
+    LinkedList();
     
     // Destructor
-    ~DoubleLinkedList();
+    ~LinkedList();
     
     // Gets
     int getSize();

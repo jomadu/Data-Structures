@@ -1,32 +1,28 @@
 //
-//  Queue.hpp
+//  Stack.hpp
 //  DataStructures
 //
 //  Created by Max Dunn on 7/26/17.
 //  Copyright © 2017 Max Dunn. All rights reserved.
 //
 
-#ifndef Queue_hpp
-#define Queue_hpp
+#ifndef Stack_hpp
+#define Stack_hpp
 
 #include <stdio.h>
 #include "LinkedList.hpp"
 #include <stdexcept>
 #include <sstream>
 
-class Queue{
+class Stack{
 private:
-    LinkedList _ll;
+    LinkedList ll_;
 public:
     // Constructors
-    Queue();
+    Stack();
     
     // Destructor
-    ~Queue();
-    
-    // Gets
-    
-    // Sets
+    ~Stack();
     
     // Helpers
     void push(int d);
@@ -36,5 +32,4 @@ public:
     int getSize();
 };
 
-
-#endif /* Queue_hpp */
+#endif /* Stack_hpp */

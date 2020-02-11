@@ -24,21 +24,21 @@ Stack::~Stack(){
 
 // Helpers
 void Stack::push(int d){
-    _ll.insertHead(d);
+    ll_.insert(0, d);
 }
 int Stack::pop(){
-    int d = _ll.getData(0);
-    _ll.removeHead();
+    int d = ll_.getData(0);
+    ll_.removeHead();
     return d;
 }
 int Stack::peek(){
-    return _ll.getData(0);
+    return ll_.getData(0);
 }
 bool Stack::isEmpty(){
-    return _ll.isEmpty();
+    return ll_.isEmpty();
 }
 int Stack::getSize(){
-    return _ll.getSize();
+    return ll_.getSize();
 }
 
 

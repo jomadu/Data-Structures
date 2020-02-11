@@ -24,19 +24,19 @@ Queue::~Queue(){
 
 // Helpers
 void Queue::push(int d){
-    _ll.insertHead(d);
+    ll_.insert(0,d);
 }
 int Queue::pop(){
-    int d = _ll.getData(_ll.getSize());
-    _ll.removeHead();
+    int d = ll_.getData(ll_.getSize());
+    ll_.removeHead();
     return d;
 }
 int Queue::peek(){
-    return _ll.getData(0);
+    return ll_.getData(0);
 }
 bool Queue::isEmpty(){
-    return _ll.isEmpty();
+    return ll_.isEmpty();
 }
 int Queue::getSize(){
-    return _ll.getSize();
+    return ll_.getSize();
 }

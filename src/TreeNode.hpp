@@ -14,10 +14,10 @@
 class TreeNode
 {
 private:
-    int _data;
-    TreeNode * _parent;
-    TreeNode * _left;
-    TreeNode * _right;
+    int data_;
+    TreeNode * parent_;
+    TreeNode * left_;
+    TreeNode * right_;
 public:
     // Constructors
     TreeNode();

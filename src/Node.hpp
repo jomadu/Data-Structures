@@ -14,9 +14,9 @@
 class Node
 {
 private:
-    int _data;
-    Node * _next;
-    Node * _prev;
+    int data_;
+    Node * next_;
+    Node * prev_;
 public:
     // Constructors
     Node();

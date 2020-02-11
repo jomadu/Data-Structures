@@ -17,8 +17,8 @@ using namespace std;
 
 class Vertex{
 private:
-    int _key;
-    int _val;
+    int key_;
+    int val_;
     unordered_map<int, Vertex *> nbrs;
 public:
     // Constructors

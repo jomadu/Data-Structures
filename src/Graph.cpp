@@ -25,18 +25,18 @@ Graph::~Graph(){
 // Helpers
 void Graph::addVertex(int k, int v){
     Vertex * newVertex = new Vertex(k, v);
-    _vertices.emplace(make_pair(k, newVertex));
+    verticies_.emplace(make_pair(k, newVertex));
 }
 void Graph::removeVertex(int k){
-    _vertices.erase(k);
-    for(unordered_map<int, Vertex *>::iterator it = _vertices.begin(); it != _vertices.end(); it++){
+    verticies_.erase(k);
+    for(unordered_map<int, Vertex *>::iterator it = verticies_.begin(); it != verticies_.end(); it++){
         it->second->removeNbr(k);
     }
 }
 void Graph::addEdge(int o, int d){
-    if (_vertices.count(o) && _vertices.count(d)){
-        Vertex * origin = _vertices.find(o)->second;
-        Vertex * dest = _vertices.find(d)->second;
+    if (verticies_.count(o) && verticies_.count(d)){
+        Vertex * origin = verticies_.find(o)->second;
+        Vertex * dest = verticies_.find(d)->second;
         int originKey = origin->getKey();
         int destKey = dest->getKey();
         
@@ -46,12 +46,12 @@ void Graph::addEdge(int o, int d){
 }
 void Graph::removeEdge(int o, int d){
     
-    if (_vertices.count(o) && _vertices.count(d)){
-        Vertex * origin = _vertices.find(o)->second;
-        Vertex * dest = _vertices.find(d)->second;
+    if (verticies_.count(o) && verticies_.count(d)){
+        Vertex * origin = verticies_.find(o)->second;
+        Vertex * dest = verticies_.find(d)->second;
     
-        int originKey = _vertices.find(o)->second->getKey();
-        int destKey = _vertices.find(d)->second->getKey();
+        int originKey = verticies_.find(o)->second->getKey();
+        int destKey = verticies_.find(d)->second->getKey();
     
         if (origin->findNbr(destKey) && dest->findNbr(originKey)){
             dest->removeNbr(originKey);
@@ -61,19 +61,19 @@ void Graph::removeEdge(int o, int d){
     
 }
 Vertex * Graph::findVertex(int k){
-    if (_vertices.count(k)){
-        return _vertices.find(k)->second;
+    if (verticies_.count(k)){
+        return verticies_.find(k)->second;
     }
     else{
         return NULL;
     }
 }
 bool Graph::hasEdge(int o, int d){
-    Vertex * origin = _vertices.find(o)->second;
-    Vertex * dest = _vertices.find(d)->second;
+    Vertex * origin = verticies_.find(o)->second;
+    Vertex * dest = verticies_.find(d)->second;
     
-    int originKey = _vertices.find(o)->second->getKey();
-    int destKey = _vertices.find(d)->second->getKey();
+    int originKey = verticies_.find(o)->second->getKey();
+    int destKey = verticies_.find(d)->second->getKey();
     
     if (origin->findNbr(destKey) && dest->findNbr(originKey))
         return true;

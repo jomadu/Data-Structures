@@ -15,23 +15,23 @@ BTree::BTree(){
 
 // Destructor
 BTree::~BTree(){
-    delete _root;
+    delete root_;
 }
 
 // Gets
 TreeNode * BTree::getRoot(){
-    return _root;
+    return root_;
 }
 
 // Sets
 
 // Helpers
 void BTree::insert(int v){
-    if (_root == NULL){
-        _root = new TreeNode(NULL,v);
+    if (root_ == NULL){
+        root_ = new TreeNode(NULL,v);
     }
     else{
-        insert_rec(_root, v);
+        insert_rec(root_, v);
     }
     
 }
@@ -66,8 +66,8 @@ void BTree::insert_rec(TreeNode * n, int v){
     }
 }
 void BTree::remove(int v){
-    if (_root != NULL){
-        remove_rec(_root, v);
+    if (root_ != NULL){
+        remove_rec(root_, v);
     }
 }
 void BTree::remove_rec(TreeNode * n, int v){
@@ -79,12 +79,12 @@ void BTree::remove_rec(TreeNode * n, int v){
     else if (n->getData() == v){
         //Case of has no children
         if (n->isLeaf()){
-            //n is _root
-            if (n == _root){
+            //n is root_
+            if (n == root_){
                 delete n;
-                _root = NULL;
+                root_ = NULL;
             }
-            //n is not _root
+            //n is not root_
             else{
                 if (n->isLeftChild()){
                     n->getParent()->setLeft(NULL);
@@ -105,14 +105,14 @@ void BTree::remove_rec(TreeNode * n, int v){
                 c = n->getRight();
             }
             
-            //n is _root
-            if (n == _root){
+            //n is root_
+            if (n == root_){
                 c->setParent(NULL);
                 delete n;
-                _root = c;
+                root_ = c;
             }
             
-            //n is not _root
+            //n is not root_
             else{
                 if (n->isLeftChild()){
                     n->getParent()->setLeft(c);
@@ -149,7 +149,7 @@ void BTree::remove_rec(TreeNode * n, int v){
                 newSubTreeRoot = rightSubtreeMin;
             }
             
-            //Adjust the _root node of the subtree
+            //Adjust the root_ node of the subtree
             //chop off the leaf
             if (newSubTreeRoot->isLeftChild()){
                 newSubTreeRoot->getParent()->setLeft(NULL);
@@ -162,9 +162,9 @@ void BTree::remove_rec(TreeNode * n, int v){
             newSubTreeRoot->setRight(n->getRight());
             
             //address if the subtree is full tree
-            if (n == _root){
+            if (n == root_){
                 newSubTreeRoot->setParent(NULL);
-                _root = newSubTreeRoot;
+                root_ = newSubTreeRoot;
             }
             else{
                 newSubTreeRoot->setParent(n->getParent());

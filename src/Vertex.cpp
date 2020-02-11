@@ -12,11 +12,11 @@
 Vertex::Vertex(){
 }
 Vertex::Vertex(int k){
-    _key = k;
+    key_ = k;
 }
 Vertex::Vertex(int k, int v){
-    _key = k;
-    _val = v;
+    key_ = k;
+    val_ = v;
 }
 
 // Destructor
@@ -27,10 +27,10 @@ Vertex::~Vertex(){
 
 // Gets
 int Vertex::getKey(){
-    return _key;
+    return key_;
 }
 int Vertex::getVal(){
-    return _val;
+    return val_;
 }
 unordered_map<int, Vertex *> Vertex::getNbrs(){
     return nbrs;
@@ -38,7 +38,7 @@ unordered_map<int, Vertex *> Vertex::getNbrs(){
 
 // Sets
 void Vertex::setVal(int d){
-    _val = d;
+    val_ = d;
 }
 
 // Helpers
