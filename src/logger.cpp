@@ -46,7 +46,7 @@ void Logger::log(const LogLevel& log_level, const std::string& msg)
     }
     else
     {
-        std::cout << "not high enough log level" << std::endl;
+        std::cout << "not high enough log level floop" << std::endl;
     }
 }
 
