@@ -4,10 +4,7 @@
 class LinkedListTest : public ::testing::Test
 {
 protected:
-    void SetUp() override
-    {
-    }
-    void compareData(const std::vector<int> expected_data)
+    void testData(const std::vector<int> expected_data)
     {
         ASSERT_EQ(expected_data.size(), ll_.size());
         for (auto i = 0; i < ll_.size(); i++)
@@ -19,25 +16,24 @@ protected:
 };
 TEST_F(LinkedListTest, append)
 {
-
-    compareData({});
+    testData({});
     ll_.append(1);
-    compareData({1});
+    testData({1});
     ll_.append(2);
-    compareData({1, 2});
+    testData({1, 2});
     ll_.append(3);
-    compareData({1, 2, 3});
+    testData({1, 2, 3});
 }
 
 TEST_F(LinkedListTest, prepend)
 {
-    compareData({});
+    testData({});
     ll_.prepend(1);
-    compareData({1});
+    testData({1});
     ll_.prepend(2);
-    compareData({2, 1});
+    testData({2, 1});
     ll_.prepend(3);
-    compareData({3, 2, 1});
+    testData({3, 2, 1});
 }
 
 TEST_F(LinkedListTest, insert)
@@ -52,18 +48,18 @@ TEST_F(LinkedListTest, insert)
         ll_.clear();
     };
     reset();
-    compareData({});
+    testData({});
 
     ll_.insert(-1, 1);
-    compareData({1});
+    testData({1});
 
     reset();
     ll_.insert(0, 1);
-    compareData({1});
+    testData({1});
     
     reset();
     ll_.insert(1, 1);
-    compareData({1});
+    testData({1});
 
     // --------
     // 1 Item in List
@@ -74,22 +70,22 @@ TEST_F(LinkedListTest, insert)
         ll_.append(1);
     };
     reset();
-    compareData({1});
+    testData({1});
 
     ll_.insert(-1, 2);
-    compareData({2, 1});
+    testData({2, 1});
 
     reset();
     ll_.insert(0, 2);
-    compareData({2, 1});
+    testData({2, 1});
     
     reset();
     ll_.insert(1, 2);
-    compareData({1, 2});
+    testData({1, 2});
     
     reset();
     ll_.insert(2, 2);
-    compareData({1, 2});
+    testData({1, 2});
     
     // --------
     // 2 Items in List
@@ -100,26 +96,26 @@ TEST_F(LinkedListTest, insert)
         ll_.append(2);
     };
     reset();
-    compareData({1, 2});
+    testData({1, 2});
 
     ll_.insert(-1, 3);
-    compareData({3, 1, 2});
+    testData({3, 1, 2});
     
     reset();
     ll_.insert(0, 3);
-    compareData({3, 1, 2});
+    testData({3, 1, 2});
     
     reset();
     ll_.insert(1, 3);
-    compareData({1, 3, 2});
+    testData({1, 3, 2});
     
     reset();
     ll_.insert(2, 3);
-    compareData({1, 2, 3});
+    testData({1, 2, 3});
     
     reset();
     ll_.insert(3, 3);
-    compareData({1, 2, 3});
+    testData({1, 2, 3});
 }
 
 TEST_F(LinkedListTest, removeHead)
@@ -127,19 +123,19 @@ TEST_F(LinkedListTest, removeHead)
     ll_.append(1);
     ll_.append(2);
     ll_.append(3);
-    compareData({1, 2, 3});
+    testData({1, 2, 3});
 
     ll_.removeHead();
-    compareData({2, 3});
+    testData({2, 3});
 
     ll_.removeHead();
-    compareData({3});
+    testData({3});
 
     ll_.removeHead();
-    compareData({});
+    testData({});
 
     ll_.removeHead();
-    compareData({});
+    testData({});
 }
 
 
@@ -148,19 +144,19 @@ TEST_F(LinkedListTest, removeTail)
     ll_.append(1);
     ll_.append(2);
     ll_.append(3);
-    compareData({1, 2, 3});
+    testData({1, 2, 3});
 
     ll_.removeTail();
-    compareData({1, 2});
+    testData({1, 2});
 
     ll_.removeTail();
-    compareData({1});
+    testData({1});
 
     ll_.removeTail();
-    compareData({});
+    testData({});
 
     ll_.removeTail();
-    compareData({});
+    testData({});
 }
 
 TEST_F(LinkedListTest, remove)
@@ -175,18 +171,18 @@ TEST_F(LinkedListTest, remove)
         ll_.clear();
     };
     reset();
-    compareData({});
+    testData({});
 
     ll_.remove(-1);
-    compareData({});
+    testData({});
 
     reset();
     ll_.remove(0);
-    compareData({});
+    testData({});
     
     reset();
     ll_.remove(1);
-    compareData({});
+    testData({});
 
     // --------
     // 1 Item in List
@@ -197,22 +193,22 @@ TEST_F(LinkedListTest, remove)
         ll_.append(1);
     };
     reset();
-    compareData({1});
+    testData({1});
 
     ll_.remove(-1);
-    compareData({});
+    testData({});
 
     reset();
     ll_.remove(0);
-    compareData({});
+    testData({});
     
     reset();
     ll_.remove(1);
-    compareData({});
+    testData({});
     
     reset();
     ll_.remove(2);
-    compareData({});
+    testData({});
     
     // --------
     // 2 Items in List
@@ -223,22 +219,22 @@ TEST_F(LinkedListTest, remove)
         ll_.append(2);
     };
     reset();
-    compareData({1, 2});
+    testData({1, 2});
 
     ll_.remove(-1);
-    compareData({2});
+    testData({2});
     
     reset();
     ll_.remove(0);
-    compareData({2});
+    testData({2});
     
     reset();
     ll_.remove(1);
-    compareData({1});
+    testData({1});
     
     reset();
     ll_.remove(2);
-    compareData({1});
+    testData({1});
 
     // --------
     // 3 Items in List
@@ -250,54 +246,52 @@ TEST_F(LinkedListTest, remove)
         ll_.append(3);
     };
     reset();
-    compareData({1, 2, 3});
+    testData({1, 2, 3});
 
     ll_.remove(-1);
-    compareData({2, 3});
+    testData({2, 3});
     
     reset();
     ll_.remove(0);
-    compareData({2, 3});
+    testData({2, 3});
     
     reset();
     ll_.remove(1);
-    compareData({1, 3});
+    testData({1, 3});
     
     reset();
     ll_.remove(2);
-    compareData({1, 2});
+    testData({1, 2});
 
     reset();
     ll_.remove(3);
-    compareData({1, 2});
+    testData({1, 2});
 }
 
 
 TEST_F(LinkedListTest, clear)
 {
     ll_.clear();
-    compareData({});
+    testData({});
 
     ll_.append(1);
     ll_.clear();
-    compareData({});
+    testData({});
 
     ll_.append(1);
     ll_.append(2);
     ll_.clear();
-    compareData({});
+    testData({});
 
     ll_.append(1);
     ll_.append(2);
     ll_.append(3);
     ll_.clear();
-    compareData({});
+    testData({});
 }
 
 TEST_F(LinkedListTest, search)
 {
-    ll_.clear();
-    compareData({});
     // empty list returns no results
     ll_.search(1);
     auto results = ll_.search(5);
@@ -331,10 +325,7 @@ TEST_F(LinkedListTest, search)
 }
 
 TEST_F(LinkedListTest, isEmpty)
-{
-    ll_.clear();
-    compareData({});
-    
+{   
     // empty list is empty
     ASSERT_TRUE(ll_.isEmpty());
 
