@@ -4,36 +4,18 @@
 #include <stdio.h>
 #include <memory>
 #include "node.hpp"
+#include "linked_list.hpp"
 
-class DoubleLinkedList
+class DoubleLinkedList : public LinkedList
 {
-private:
-    int size_;
-    std::shared_ptr<Node> head_;
-    std::shared_ptr<Node> tail_;
 public:
-    // Constructors
-    DoubleLinkedList();
-    
-    // Destructor
-    ~DoubleLinkedList();
-    
-    // Gets
-    int size();
-    
-    // Sets
-    
-    // Helpers
-    int data(int idx);
-    void data(int idx, int data);
-    void append(int data);
-    void prepend(int data);
-    void insert(int idx, int data);
-    void removeHead();
-    void removeTail();
-    void remove(int idx);
-    void display();
-    std::shared_ptr<Node> search(int data);
-    bool isEmpty();
+    int data(int idx) override;
+    void data(int idx, int data) override;
+    void append(int data) override;
+    void prepend(int data) override;
+    void insert(int idx, int data) override;
+    void removeHead() override;
+    void removeTail() override;
+    void remove(int idx) override;
 };
 #endif // DOUBLE_LINKED_LIST_HPP

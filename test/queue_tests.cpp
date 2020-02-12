@@ -20,7 +20,6 @@ TEST_F(QueueTest, push)
     testData({});
     queue_.push(1);
     testData({1});
-    std::cout << "push b" << std::endl;
     queue_.push(2);
     testData({1, 2});
     queue_.push(3);

@@ -4,80 +4,68 @@
 #include <sstream>
 #include <iostream>
 
-// Constructors
-DoubleLinkedList::DoubleLinkedList() : size_(0), head_(nullptr), tail_(nullptr){
-}
-
-// Destructor
-DoubleLinkedList::~DoubleLinkedList(){
-    auto curr = head_;
-    auto next = head_;
-    while (curr != nullptr){
-        next = curr->next();
-        curr.reset();
-        curr = next;
-    }
-    head_ = nullptr;
-    tail_ = nullptr;
-}
-
-// Gets
-int DoubleLinkedList::size(){
-    return size_;
-}
-
-// Sets
-
-// Helpers
-int DoubleLinkedList::data(int idx){
+int DoubleLinkedList::data(int idx)
+{
     std::shared_ptr<Node> curr;
-    
+
     if (idx < 0 || idx >= size_)
         throw std::out_of_range("Data retrieval idx out of range.");
-    
-    if (idx < size_/2){
+
+    if (idx < size_ / 2)
+    {
         curr = head_;
-        for (auto i = 0; i < idx; i++){
+        for (auto i = 0; i < idx; i++)
+        {
             curr = curr->next();
         }
     }
-    else{
+    else
+    {
         curr = tail_;
-        for (auto i = size_; i >= idx; i--){
+        for (auto i = size_ - 1 ; i > idx; i--)
+        {
             curr = curr->prev();
         }
     }
     return curr->data();
 }
 
-void DoubleLinkedList::data(int idx, int data){
+void DoubleLinkedList::data(int idx, int data)
+{
     std::shared_ptr<Node> curr;
-    
+
     if (idx < 0 || idx >= size_)
         throw std::out_of_range("Data retrieval idx out of range.");
-    
-    if (idx < size_/2){
+
+    if (idx < size_ / 2)
+    {
         curr = head_;
-        for (auto i = 0; i < idx; i++){
+        for (auto i = 0; i < idx; i++)
+        {
             curr = curr->next();
         }
     }
-    else{
+    else
+    {
         curr = tail_;
-        for (auto i = size_; i >= idx; i--){
+        for (auto i = size_ - 1; i > idx; i--)
+        {
             curr = curr->prev();
         }
     }
     return curr->data(data);
 }
-void DoubleLinkedList::append(int data){
+void DoubleLinkedList::append(int data)
+{
     auto newNode = std::make_shared<Node>(data);
 
-    if (this->isEmpty()){
+    if (this->isEmpty())
+    {
         head_ = newNode;
         tail_ = newNode;
     }
-    else{
+    else
+    {
         tail_->next(newNode);
         newNode->prev(tail_);
         tail_ = newNode;
@@ -85,14 +73,17 @@ void DoubleLinkedList::append(int data){
 
     size_++;
 }
-void DoubleLinkedList::prepend(int data){
+void DoubleLinkedList::prepend(int data)
+{
     auto newNode = std::make_shared<Node>(data);
 
-    if (head_ == nullptr){
+    if (head_ == nullptr)
+    {
         head_ = newNode;
         tail_ = newNode;
     }
-    else{
+    else
+    {
         newNode->next(head_);
         head_->prev(newNode);
         head_ = newNode;
@@ -100,39 +91,43 @@ void DoubleLinkedList::prepend(int data){
 
     size_++;
 }
-void DoubleLinkedList::insert(int idx, int data){
-    // Input Cleansing
-    if (idx < 0 || idx > size_)
-        throw std::out_of_range("Insertion idx out of range.");
-
+void DoubleLinkedList::insert(int idx, int data)
+{
     // Insert as a insertHead
-    if (idx == 0){
+    if (idx <= 0)
+    {
         prepend(data);
     }
     // Insert as an insertTail
-    else if (idx == size_){
+    else if (idx >= size_)
+    {
         append(data);
     }
     // Insert in the middle
-    else{
+    else
+    {
         auto newNode = std::make_shared<Node>(data);
         std::shared_ptr<Node> curr;
         std::shared_ptr<Node> prev;
-        
-        if (idx < size_/2){
+
+        if (idx < size_ / 2)
+        {
             curr = head_;
-            for (auto i = 0; i < idx; i++){
+            for (auto i = 0; i < idx; i++)
+            {
                 curr = curr->next();
             }
         }
-        else{
+        else
+        {
             curr = tail_;
-            for (auto i = size_; i >= idx; i--){
+            for (auto i = size_ - 1; i > idx; i--)
+            {
                 curr = curr->prev();
             }
         }
         prev = curr->prev();
-        
+
         prev->next(newNode);
         newNode->prev(prev);
         curr->prev(newNode);
@@ -140,76 +135,88 @@ void DoubleLinkedList::insert(int idx, int data){
         size_++;
     }
 }
-void DoubleLinkedList::removeHead(){
+void DoubleLinkedList::removeHead()
+{
     // Empty List
-    if (this->isEmpty()){
+    if (this->isEmpty())
+    {
         return;
     }
     // Single Node in List
-    else if (head_ == tail_){
+    else if (head_ == tail_)
+    {
         head_.reset();
         head_ = nullptr;
         tail_ = nullptr;
     }
-    // Multiple Nodes in list 
-    else{
+    // Multiple Nodes in list
+    else
+    {
         auto next = head_->next();
         head_.reset();
         next->prev(nullptr);
         head_ = next;
     }
 
-    size_ --;
+    size_--;
 }
-void DoubleLinkedList::removeTail(){
+void DoubleLinkedList::removeTail()
+{
     // Empty List
-    if (this->isEmpty()){
+    if (this->isEmpty())
+    {
         return;
     }
     // Single Node in List
-    else if (head_ == tail_){
+    else if (head_ == tail_)
+    {
         tail_.reset();
         head_ = nullptr;
         tail_ = nullptr;
     }
     // Multiple Nodes in List
-    else{
+    else
+    {
         auto prev = tail_->prev();
         tail_.reset();
         prev->next(nullptr);
         tail_ = prev;
     }
 
-    size_ --;
+    size_--;
 }
-void DoubleLinkedList::remove(int idx){
-    // Input Cleansing
-    if (idx < 0 || idx >= size_)
-        throw std::out_of_range("Removal idx out of range.");
-
+void DoubleLinkedList::remove(int idx)
+{
     // Remove from head
-    if (idx == 0){
+    if (idx <= 0)
+    {
         removeHead();
     }
     // Remove from tail
-    else if (idx == (size_-1)){
+    else if (idx >= (size_ - 1))
+    {
         removeTail();
     }
     // Remove from middle
     // i.e. idx element of [1, size-2]
-    else{
+    else
+    {
         auto curr = head_;
         std::shared_ptr<Node> prev;
         std::shared_ptr<Node> next;
-        if (idx < size_/2){
+        if (idx < size_ / 2)
+        {
             curr = head_;
-            for (auto i = 0; i < idx; i++){
+            for (auto i = 0; i < idx; i++)
+            {
                 curr = curr->next();
             }
         }
-        else{
+        else
+        {
             curr = tail_;
-            for (auto i = size_; i >= idx; i--){
+            for (auto i = size_ - 1; i > idx; i--)
+            {
                 curr = curr->prev();
             }
         }
@@ -218,31 +225,6 @@ void DoubleLinkedList::remove(int idx){
         prev->next(next);
         next->prev(prev);
         curr.reset();
-        size_ --;
+        size_--;
     }
-}
-void DoubleLinkedList::display(){
-    std::stringstream ss;
-    auto curr = head_;
-    while (curr != nullptr){
-        ss << "[" + std::to_string(curr->data()) + "] -> ";
-        curr = curr->next();
-    }
-    std::cout << ss.str() + "EOL\n";
-}
-
-std::shared_ptr<Node> DoubleLinkedList::search(int data){
-    auto curr = head_;
-    while (curr != nullptr){
-        if (curr->data() == data){
-            return curr;
-        }
-        else{
-            curr = curr->next();
-        }
-    }
-    return nullptr;
-}
-bool DoubleLinkedList::isEmpty(){
-    return ((head_ == nullptr) && (tail_ == nullptr));
 }
