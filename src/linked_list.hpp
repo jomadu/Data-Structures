@@ -8,10 +8,6 @@
 
 class LinkedList
 {
-private:
-    int size_;
-    std::shared_ptr<Node> head_;
-    std::shared_ptr<Node> tail_;
 public:
     LinkedList();
     ~LinkedList();
@@ -29,6 +25,11 @@ public:
     void display();
     std::vector<std::shared_ptr<Node>> search(int data);
     bool isEmpty();
+
+private:
+    int size_;
+    std::shared_ptr<Node> head_;
+    std::shared_ptr<Node> tail_;
 };
 
 #endif // LINKED_LIST_HPP
