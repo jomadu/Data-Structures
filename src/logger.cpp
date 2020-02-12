@@ -3,6 +3,7 @@
 #include <ctime>
 #include <sstream>
 #include <iomanip>
+#include <iostream>
 
 Logger *Logger::inst_ = nullptr;
 
@@ -42,11 +43,7 @@ void Logger::log(const LogLevel& log_level, const std::string& msg)
 
     if (log_level <= logger.logLevel())
     {
-        std::cout << time_ss.str() << ": " << msg << std::endl;
-    }
-    else
-    {
-        std::cout << "not high enough log level floop" << std::endl;
+        std::cout << time_ss.str() << " LogLevel::" << log_level << ": " << msg << std::endl;
     }
 }
 

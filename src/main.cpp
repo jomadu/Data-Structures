@@ -1,17 +1,9 @@
-//
-//  main.cpp
-//  Test
-//
-//  Created by Max Dunn on 7/26/17.
-//  Copyright © 2017 Max Dunn. All rights reserved.
-//
-
 #include <iostream>
 // #include "LinkedList.hpp"
 // #include "DoubleLinkedList.hpp"
 // #include "CircularDoubleLinkedList.hpp"
 // #include "Graph.hpp"
-// #include "BTree.hpp"
+// #include "BinaryTree.hpp"
 #include "logger.hpp"
 
 // void LLTest(){
@@ -414,7 +406,7 @@
 // }
 
 // void TreeTest(){
-//     BTree tree;
+//     BinaryTree tree;
 //     tree.insert(10);
 //     tree.insert(11);
 //     tree.insert(8);

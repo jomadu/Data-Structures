@@ -1,8 +1,7 @@
 #ifndef LOGGER_HPP
 #define LOGGER_HPP
 
-#include <iostream>
-
+#include <string>
 class Logger
 {
 public:
@@ -29,4 +28,4 @@ protected:
 private:
     static Logger *inst_;
 };
-#endif
+#endif // LOGGER_HPP

@@ -1,26 +1,16 @@
-//
-//  LinkedList.hpp
-//  DataStructures
-//
-//  Created by Max Dunn on 7/26/17.
-//  Copyright © 2017 Max Dunn. All rights reserved.
-//
-
+#ifndef LINKED_LIST_HPP
+#define LINKED_LIST_HPP
 
 #include <stdio.h>
-#include "Node.hpp"
-#include <stdexcept>
-#include <sstream>
-#include <iostream>
-
-using namespace std;
+#include <memory>
+#include "node.hpp"
 
 class LinkedList
 {
 private:
     int size_;
-    Node * head_;
-    Node * tail_;
+    std::shared_ptr<Node> head_;
+    std::shared_ptr<Node> tail_;
 public:
     // Constructors
     LinkedList();
@@ -29,13 +19,13 @@ public:
     ~LinkedList();
     
     // Gets
-    int getSize();
+    int size();
     
     // Sets
     
     // Helpers
-    int getData(int idx);
-    void setData(int idx, int data);
+    int data(int idx);
+    void data(int idx, int data);
     void append(int data);
     void prepend(int data);
     void insert(int idx, int data);
@@ -43,6 +33,8 @@ public:
     void removeTail();
     void remove(int idx);
     void display();
-    Node * search(int data);
+    std::shared_ptr<Node> search(int data);
     bool isEmpty();
 };
+
+#endif // LINKED_LIST_HPP

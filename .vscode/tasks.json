@@ -10,6 +10,16 @@
             "problemMatcher": [
                 "$gcc"
             ]
+        },
+        {
+            "group": "test",
+            "label": "test",
+            "type": "shell",
+            "command": "./test/runTests.sh",
+            "dependsOn": ["build"],
+            "problemMatcher": [
+                "$gcc"
+            ]
         }
     ]
 }
