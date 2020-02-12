@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <memory>
+#include <vector>
 #include "node.hpp"
 
 class LinkedList
@@ -12,18 +13,10 @@ private:
     std::shared_ptr<Node> head_;
     std::shared_ptr<Node> tail_;
 public:
-    // Constructors
     LinkedList();
-    
-    // Destructor
     ~LinkedList();
     
-    // Gets
     int size();
-    
-    // Sets
-    
-    // Helpers
     int data(int idx);
     void data(int idx, int data);
     void append(int data);
@@ -32,8 +25,9 @@ public:
     void removeHead();
     void removeTail();
     void remove(int idx);
+    void clear();
     void display();
-    std::shared_ptr<Node> search(int data);
+    std::vector<std::shared_ptr<Node>> search(int data);
     bool isEmpty();
 };
 
