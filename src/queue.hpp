@@ -5,25 +5,15 @@
 #include "linked_list.hpp"
 
 class Queue{
-private:
-    LinkedList ll_;
 public:
-    // Constructors
-    Queue();
-    
-    // Destructor
-    ~Queue();
-    
-    // Gets
-    
-    // Sets
-    
-    // Helpers
     void push(int d);
     int pop();
+    void clear();
     int peek();
     bool isEmpty();
     int size();
+private:
+    LinkedList ll_;
 };
 
 

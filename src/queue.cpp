@@ -2,28 +2,20 @@
 #include <stdexcept>
 #include <sstream>
 
-// Constructors
-Queue::Queue(){
-    
-}
-
-// Desctructors
-Queue::~Queue(){
-    
-}
-
-// Gets
-
-// Sets
-
-// Helpers
 void Queue::push(int d){
-    ll_.insert(0,d);
+    ll_.append(d);
 }
 int Queue::pop(){
-    int d = ll_.data(ll_.size());
+    int d = ll_.data(0);
     ll_.removeHead();
     return d;
+}
+void Queue::clear()
+{
+    while(!isEmpty())
+    {
+        pop();
+    }
 }
 int Queue::peek(){
     return ll_.data(0);
