@@ -62,7 +62,6 @@ TEST_F(DoubleLinkedListTest, insert)
     dll_.insert(1, 1);
     testData({1});
 
-    std::cout << "insert a" << std::endl; // DELETE_ME
     // --------
     // 1 Item in List
     // --------

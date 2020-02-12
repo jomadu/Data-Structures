@@ -13,6 +13,8 @@ public:
     ~LinkedList();
     
     int size();
+    std::shared_ptr<Node> head();
+    std::shared_ptr<Node> tail();
     virtual int data(int idx);
     virtual void data(int idx, int data);
     virtual void append(int data);

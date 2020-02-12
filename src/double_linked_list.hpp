@@ -3,7 +3,6 @@
 
 #include <stdio.h>
 #include <memory>
-#include "node.hpp"
 #include "linked_list.hpp"
 
 class DoubleLinkedList : public LinkedList

@@ -9,21 +9,23 @@ LinkedList::LinkedList() : size_(0), head_(nullptr), tail_(nullptr)
 
 LinkedList::~LinkedList()
 {
-    auto curr = head_;
-    auto next = head_;
-    while (curr != nullptr)
+    while (!isEmpty())
     {
-        next = curr->next();
-        curr.reset();
-        curr = next;
+        removeHead();
     }
-    head_ = nullptr;
-    tail_ = nullptr;
 }
 
 int LinkedList::size()
 {
     return size_;
+}
+std::shared_ptr<Node> LinkedList::head()
+{
+    return head_;
+}
+std::shared_ptr<Node> LinkedList::tail()
+{
+    return tail_;
 }
 int LinkedList::data(int idx)
 {
@@ -211,7 +213,7 @@ void LinkedList::display()
 {
     std::stringstream ss;
     auto curr = head_;
-    while (curr != nullptr)
+    for(auto i = 0; i < size(); i ++)
     {
         ss << "[" + std::to_string(curr->data()) + "] -> ";
         curr = curr->next();
@@ -222,7 +224,7 @@ std::vector<std::shared_ptr<Node>> LinkedList::search(int data)
 {
     std::vector<std::shared_ptr<Node>> results;
     auto curr = head_;
-    while (curr != nullptr)
+    for(auto i = 0; i < size(); i ++)
     {
         if (curr->data() == data)
         {
