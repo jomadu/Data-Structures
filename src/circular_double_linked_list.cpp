@@ -3,7 +3,7 @@
 #include <sstream>
 #include <iostream>
 
-int CircularDoubleLinkedList::data(int idx)
+int CircularDoubleLinkedList::data(const int idx) const
 {
     std::shared_ptr<LinkedListNode> curr;
 
@@ -28,7 +28,7 @@ int CircularDoubleLinkedList::data(int idx)
     }
     return curr->data();
 }
-void CircularDoubleLinkedList::data(int idx, int data)
+void CircularDoubleLinkedList::data(const int idx, const int data)
 {
     std::shared_ptr<LinkedListNode> curr;
 
@@ -53,7 +53,7 @@ void CircularDoubleLinkedList::data(int idx, int data)
     }
     return curr->data(data);
 }
-void CircularDoubleLinkedList::append(int data)
+void CircularDoubleLinkedList::append(const int data)
 {
     auto new_node = std::make_shared<LinkedListNode>(data);
 
@@ -75,7 +75,7 @@ void CircularDoubleLinkedList::append(int data)
 
     size_++;
 }
-void CircularDoubleLinkedList::prepend(int data)
+void CircularDoubleLinkedList::prepend(const int data)
 {
     auto new_node = std::make_shared<LinkedListNode>(data);
 
@@ -97,7 +97,7 @@ void CircularDoubleLinkedList::prepend(int data)
 
     size_++;
 }
-void CircularDoubleLinkedList::insert(int idx, int data)
+void CircularDoubleLinkedList::insert(const int idx, const int data)
 {
     // Insert as a insertHead
     if (idx <= 0)
@@ -193,8 +193,7 @@ void CircularDoubleLinkedList::removeTail()
 
     size_--;
 }
-
-void CircularDoubleLinkedList::remove(int idx)
+void CircularDoubleLinkedList::remove(const int idx)
 {
     // Remove from head
     if (idx <= 0)

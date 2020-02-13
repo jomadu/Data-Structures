@@ -1,32 +1,31 @@
 #ifndef LINKED_LIST_HPP
 #define LINKED_LIST_HPP
 
-#include <stdio.h>
+#include "linked_list_node.hpp"
 #include <memory>
 #include <vector>
-#include "linked_list_node.hpp"
 
 class LinkedList
 {
 public:
     LinkedList();
-    ~LinkedList();
-    
-    int size();
-    std::shared_ptr<LinkedListNode> head();
-    std::shared_ptr<LinkedListNode> tail();
-    virtual int data(int idx);
-    virtual void data(int idx, int data);
-    virtual void append(int data);
-    virtual void prepend(int data);
-    virtual void insert(int idx, int data);
+
+    int size() const;
+    std::shared_ptr<LinkedListNode> head() const;
+    std::shared_ptr<LinkedListNode> tail() const;
+
+    virtual int data(const int idx) const;
+    virtual void data(const int idx, const int data);
+    virtual void append(const int data);
+    virtual void prepend(const int data);
+    virtual void insert(const int idx, const int data);
     virtual void removeHead();
     virtual void removeTail();
-    virtual void remove(int idx);
+    virtual void remove(const int idx);
     void clear();
-    void display();
-    std::vector<std::shared_ptr<LinkedListNode>> search(int data);
-    bool isEmpty();
+    std::vector<std::shared_ptr<LinkedListNode>> search(const int data) const;
+    bool isEmpty() const;
+    void display() const;
 
 protected:
     int size_;

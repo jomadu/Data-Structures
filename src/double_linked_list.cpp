@@ -4,7 +4,7 @@
 #include <sstream>
 #include <iostream>
 
-int DoubleLinkedList::data(int idx)
+int DoubleLinkedList::data(const int idx) const
 {
     std::shared_ptr<LinkedListNode> curr;
 
@@ -30,7 +30,7 @@ int DoubleLinkedList::data(int idx)
     return curr->data();
 }
 
-void DoubleLinkedList::data(int idx, int data)
+void DoubleLinkedList::data(const int idx, const int data)
 {
     std::shared_ptr<LinkedListNode> curr;
 
@@ -55,7 +55,7 @@ void DoubleLinkedList::data(int idx, int data)
     }
     return curr->data(data);
 }
-void DoubleLinkedList::append(int data)
+void DoubleLinkedList::append(const int data)
 {
     auto newNode = std::make_shared<LinkedListNode>(data);
 
@@ -73,7 +73,7 @@ void DoubleLinkedList::append(int data)
 
     size_++;
 }
-void DoubleLinkedList::prepend(int data)
+void DoubleLinkedList::prepend(const int data)
 {
     auto newNode = std::make_shared<LinkedListNode>(data);
 
@@ -91,7 +91,7 @@ void DoubleLinkedList::prepend(int data)
 
     size_++;
 }
-void DoubleLinkedList::insert(int idx, int data)
+void DoubleLinkedList::insert(const int idx, const int data)
 {
     // Insert as a insertHead
     if (idx <= 0)
@@ -185,7 +185,7 @@ void DoubleLinkedList::removeTail()
 
     size_--;
 }
-void DoubleLinkedList::remove(int idx)
+void DoubleLinkedList::remove(const int idx)
 {
     // Remove from head
     if (idx <= 0)

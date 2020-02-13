@@ -7,32 +7,26 @@ LinkedList::LinkedList() : size_(0), head_(nullptr), tail_(nullptr)
 {
 }
 
-LinkedList::~LinkedList()
-{
-    while (!isEmpty())
-    {
-        removeHead();
-    }
-}
-
-int LinkedList::size()
+int LinkedList::size() const
 {
     return size_;
 }
-std::shared_ptr<LinkedListNode> LinkedList::head()
+std::shared_ptr<LinkedListNode> LinkedList::head() const
 {
     return head_;
 }
-std::shared_ptr<LinkedListNode> LinkedList::tail()
+std::shared_ptr<LinkedListNode> LinkedList::tail() const
 {
     return tail_;
 }
-int LinkedList::data(int idx)
+int LinkedList::data(const int idx) const
 {
     auto curr = head_;
 
     if (idx < 0 || idx >= size_)
+    {
         throw std::out_of_range("Data retrieval idx out of range.");
+    }
 
     for (auto i = 0; i < idx; i++)
     {
@@ -40,12 +34,14 @@ int LinkedList::data(int idx)
     }
     return curr->data();
 }
-void LinkedList::data(int idx, int data)
+void LinkedList::data(const int idx, const int data)
 {
     auto curr = head_;
 
     if (idx < 0 || idx >= size_)
+    {
         throw std::out_of_range("Data retrieval idx out of range.");
+    }
 
     for (auto i = 0; i < idx; i++)
     {
@@ -54,59 +50,54 @@ void LinkedList::data(int idx, int data)
 
     curr->data(data);
 }
-void LinkedList::append(int data)
+void LinkedList::append(const int data)
 {
-    auto newNode = std::make_shared<LinkedListNode>(data);
+    auto new_node = std::make_shared<LinkedListNode>(data);
 
     if (this->isEmpty())
     {
-        head_ = newNode;
-        tail_ = newNode;
+        head_ = new_node;
+        tail_ = new_node;
     }
     else
     {
-        tail_->next(newNode);
-        tail_ = newNode;
+        tail_->next(new_node);
+        tail_ = new_node;
     }
 
     size_++;
 }
-void LinkedList::prepend(int data)
+void LinkedList::prepend(const int data)
 {
-    auto newNode = std::make_shared<LinkedListNode>(data);
+    auto new_node = std::make_shared<LinkedListNode>(data);
 
     if (this->isEmpty())
     {
-        head_ = newNode;
-        tail_ = newNode;
+        head_ = new_node;
+        tail_ = new_node;
     }
     else
     {
-        newNode->next(head_);
-        head_ = newNode;
+        new_node->next(head_);
+        head_ = new_node;
     }
 
     size_++;
 }
-void LinkedList::insert(int idx, int data)
+void LinkedList::insert(const int idx, const int data)
 {
-    // Insert as a insertHead
     if (idx <= 0)
     {
         prepend(data);
     }
-
-    // Insert as an insertTail (really append)
     else if (idx >= size_)
     {
         append(data);
     }
-
-    // Insert in the middle
-    // i.e. idx element of [1, size-1]
     else
     {
-        auto newNode = std::make_shared<LinkedListNode>(data);
+        // Insert into middle
+        auto new_node = std::make_shared<LinkedListNode>(data);
         auto curr = head_;
         auto prev = head_;
         for (auto i = 0; i < idx; i++)
@@ -114,28 +105,27 @@ void LinkedList::insert(int idx, int data)
             prev = curr;
             curr = curr->next();
         }
-        prev->next(newNode);
-        newNode->next(curr);
+        prev->next(new_node);
+        new_node->next(curr);
         size_++;
     }
 }
 void LinkedList::removeHead()
 {
-    // Empty List
     if (this->isEmpty())
     {
         return;
     }
-    // Single LinkedListNode in List
     else if (head_ == tail_)
     {
+        // Single node in list
         head_.reset();
         head_ = nullptr;
         tail_ = nullptr;
     }
-    // Multiple Nodes in list
     else
     {
+        // Multiple nodes in list
         auto second = head_->next();
         head_.reset();
         head_ = second;
@@ -145,21 +135,20 @@ void LinkedList::removeHead()
 }
 void LinkedList::removeTail()
 {
-    // Empty List
     if (this->isEmpty())
     {
         return;
     }
-    // Single LinkedListNode in List
     else if (head_ == tail_)
     {
+        // Single node in list
         tail_.reset();
         head_ = nullptr;
         tail_ = nullptr;
     }
-    // Multiple Nodes in List
     else
     {
+        // Multiple nodes in list
         auto curr = head_;
         auto prev = head_;
         while (curr->next() != nullptr)
@@ -174,22 +163,19 @@ void LinkedList::removeTail()
 
     size_--;
 }
-void LinkedList::remove(int idx)
+void LinkedList::remove(const int idx)
 {
-    // Remove from head
     if (idx <= 0)
     {
         removeHead();
     }
-    // Remove from tail
     else if (idx >= (size_ - 1))
     {
         removeTail();
     }
-    // Remove from middle
-    // i.e. idx element of [1, size-2]
     else
     {
+        // Remove from middle
         auto curr = head_;
         auto prev = head_;
         for (auto i = 0; i < idx; i++)
@@ -204,27 +190,17 @@ void LinkedList::remove(int idx)
 }
 void LinkedList::clear()
 {
-    while (head_ != nullptr)
+    while (!isEmpty())
     {
         removeHead();
     }
 }
-void LinkedList::display()
-{
-    std::stringstream ss;
-    auto curr = head_;
-    for(auto i = 0; i < size(); i ++)
-    {
-        ss << "[" + std::to_string(curr->data()) + "] -> ";
-        curr = curr->next();
-    }
-    std::cout << ss.str() + "EOL\n";
-}
-std::vector<std::shared_ptr<LinkedListNode>> LinkedList::search(int data)
+
+std::vector<std::shared_ptr<LinkedListNode>> LinkedList::search(const int data) const
 {
     std::vector<std::shared_ptr<LinkedListNode>> results;
     auto curr = head_;
-    for(auto i = 0; i < size(); i ++)
+    for (auto i = 0; i < size(); i++)
     {
         if (curr->data() == data)
         {
@@ -234,7 +210,19 @@ std::vector<std::shared_ptr<LinkedListNode>> LinkedList::search(int data)
     }
     return results;
 }
-bool LinkedList::isEmpty()
+bool LinkedList::isEmpty() const
 {
     return ((head_ == nullptr) && (tail_ == nullptr));
+}
+void LinkedList::display() const
+{
+    std::stringstream ss;
+    ss << "{ ";
+    auto curr = head_;
+    for (auto i = 0; i < size(); i++)
+    {
+        ss << "[" + std::to_string(curr->data()) + "] ";
+        curr = curr->next();
+    }
+    std::cout << ss.str() << "}";
 }
