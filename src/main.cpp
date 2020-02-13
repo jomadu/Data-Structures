@@ -3,7 +3,7 @@
 // #include "DoubleLinkedList.hpp"
 // #include "CircularDoubleLinkedList.hpp"
 // #include "Graph.hpp"
-// #include "BinaryTree.hpp"
+// #include "BinarySearchTree.hpp"
 #include "logger.hpp"
 
 // void LLTest(){
@@ -406,17 +406,17 @@
 // }
 
 // void TreeTest(){
-//     BinaryTree tree;
+//     BinarySearchTree tree;
 //     tree.insert(10);
 //     tree.insert(11);
 //     tree.insert(8);
 //     tree.insert(9);
-//     tree.display(tree.getRoot());
+//     tree.display(tree.root());
 //     tree.remove(9);
-//     tree.display(tree.getRoot());
+//     tree.display(tree.root());
 //     tree.insert(9);
 //     tree.remove(8);
-//     tree.display(tree.getRoot());
+//     tree.display(tree.root());
 // }
 
 int main(){

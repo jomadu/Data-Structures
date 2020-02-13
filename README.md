@@ -10,7 +10,7 @@ Supports `LinkedList`, `DoubleLinkedList`, and `CircularDoubleLinkedList` object
 - `Node * prev_`
 - `Node * next_`
 ### TreeNode
-Supports `BinaryTree` objects
+Supports `BinarySearchTree` objects
 #### Private Members
 - `int data_`
 - `TreeNode * parent_`
@@ -52,7 +52,7 @@ Queue implemented using `LinkedList`
 Undirected graph implemented using `Vertex`
 #### Private Members
 - `std::unordered_map<int, std::shared_ptr<Vertex>> verticies_`
-### BinaryTree
+### BinarySearchTree
 Binary Tree implemented using `TreeNode`
 #### Private Members
 - `TreeNode * root_`
