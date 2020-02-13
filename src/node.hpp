@@ -1,3 +1,13 @@
+/**
+ * @file node.hpp
+ * @author Max Dunn (maxdunn123@gmail.com)
+ * @copyright Copyright Max Dunn (c) 2020. All rights reserved.
+ * 
+ * @brief Node declaration
+ * - data_ : int
+ * - next_ : std::shared_ptr<Node>
+ * - prev_ : std::shared_ptr<Node>
+ */
 #ifndef NODE_HPP
 #define NODE_HPP
 
@@ -6,29 +16,22 @@
 
 class Node
 {
+public:
+    Node();
+    Node(const int data);
+
+    int data() const;
+    std::shared_ptr<Node> next() const;
+    std::shared_ptr<Node> prev() const;
+
+    void data(const int data);
+    void next(std::shared_ptr<Node> next);
+    void prev(std::shared_ptr<Node> prev);
+
 private:
     int data_;
     std::shared_ptr<Node> next_;
     std::shared_ptr<Node> prev_;
-public:
-    // Constructors
-    Node();
-    Node(int data);
-    
-    // Destructor
-    ~Node();
-    
-    // Gets
-    int data();
-    std::shared_ptr<Node> next();
-    std::shared_ptr<Node> prev();
-
-    // Sets
-    void data(int data);
-    void next(std::shared_ptr<Node> next);
-    void prev(std::shared_ptr<Node> prev);
-    
-    // Helpers
 };
 
 #endif // NODE_HPP
