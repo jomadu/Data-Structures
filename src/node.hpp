@@ -4,6 +4,7 @@
  * @copyright Copyright Max Dunn (c) 2020. All rights reserved.
  * 
  * @brief Node declaration
+ * Inherited by: LinkedListNode, TreeNode
  * # data_ : int
  */
 #ifndef NODE_HPP

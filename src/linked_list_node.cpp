@@ -19,7 +19,7 @@ LinkedListNode::LinkedListNode() : next_(nullptr), prev_(nullptr)
  * 
  * @param data initial data_
  */
-LinkedListNode::LinkedListNode(const int data) : LinkedListNode()
+LinkedListNode::LinkedListNode(const int data) : next_(nullptr), prev_(nullptr)
 {
     data_ = data;
 }

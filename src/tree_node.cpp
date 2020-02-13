@@ -13,9 +13,8 @@ TreeNode::TreeNode() : parent_(nullptr), left_(nullptr), right_(nullptr)
  * @param parent initial parent_
  * @param data initial data_
  */
-TreeNode::TreeNode(std::shared_ptr<TreeNode> parent, const int data) : TreeNode()
+TreeNode::TreeNode(std::shared_ptr<TreeNode> parent, const int data) : parent_(parent), left_(nullptr), right_(nullptr)
 {
-    parent_ = parent;
     data_ = data;
 }
 
