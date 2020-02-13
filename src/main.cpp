@@ -13,15 +13,15 @@
 //      Functions to test:
 //      insertTail
 //      Empty
-//      1-Node
+//      1-LinkedListNode
 //      2-Nodes
 //      insertHead
 //      Empty
-//      1-Node
+//      1-LinkedListNode
 //      2-Nodes
 //      insert (insertTail, insertHead, middle)
 //      Empty
-//      1-Node
+//      1-LinkedListNode
 //      insertTail
 //      insertHead
 //      2-Nodes
@@ -30,15 +30,15 @@
 //      insertHead
 //      removeHead
 //      Empty
-//      1-Node
+//      1-LinkedListNode
 //      2-Nodes
 //      removeTail
 //      Empty
-//      1-Node
+//      1-LinkedListNode
 //      2-Nodes
 //      remove (head, tail, middle)
 //      Empty
-//      1-Node
+//      1-LinkedListNode
 //      removeHead
 //      removeTail
 //      2-Nodes
@@ -144,15 +144,15 @@
 //      Functions to test:
 //      insertTail
 //      Empty
-//      1-Node
+//      1-LinkedListNode
 //      2-Nodes
 //      insertHead
 //      Empty
-//      1-Node
+//      1-LinkedListNode
 //      2-Nodes
 //      insert (insertTail, insertHead, middle)
 //      Empty
-//      1-Node
+//      1-LinkedListNode
 //      insertTail
 //      insertHead
 //      2-Nodes
@@ -161,15 +161,15 @@
 //      insertHead
 //      removeHead
 //      Empty
-//      1-Node
+//      1-LinkedListNode
 //      2-Nodes
 //      removeTail
 //      Empty
-//      1-Node
+//      1-LinkedListNode
 //      2-Nodes
 //      remove (head, tail, middle)
 //      Empty
-//      1-Node
+//      1-LinkedListNode
 //      removeHead
 //      removeTail
 //      2-Nodes
@@ -275,15 +275,15 @@
 //      Functions to test:
 //      insertTail
 //         Empty
-//         1-Node
+//         1-LinkedListNode
 //         2-Nodes
 //      insertHead
 //         Empty
-//         1-Node
+//         1-LinkedListNode
 //         2-Nodes
 //      insert (insertTail, insertHead, middle)
 //         Empty
-//         1-Node
+//         1-LinkedListNode
 //             insertTail
 //             insertHead
 //         2-Nodes
@@ -292,15 +292,15 @@
 //             insertHead
 //      removeHead
 //         Empty
-//         1-Node
+//         1-LinkedListNode
 //         2-Nodes
 //      removeTail
 //         Empty
-//         1-Node
+//         1-LinkedListNode
 //         2-Nodes
 //      remove (head, tail, middle)
 //         Empty
-//         1-Node
+//         1-LinkedListNode
 //             removeHead
 //             removeTail
 //         2-Nodes

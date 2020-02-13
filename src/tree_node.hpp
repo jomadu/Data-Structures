@@ -1,43 +1,46 @@
+/**
+ * @file tree_node.hpp
+ * @author Max Dunn (maxdunn123@gmail.com)
+ * @copyright Copyright Max Dunn (c) 2020. All rights reserved.
+ * 
+ * @brief TreeNode declaration
+ * inherits Node
+ * - parent_ : std::shared_ptr<TreeNode>
+ * - left_ : std::shared_ptr<TreeNode>
+ * - right_ : std::shared_ptr<TreeNode>
+ */
 #ifndef TREE_NODE_HPP
 #define TREE_NODE_HPP
 
 #include <stdio.h>
+#include "node.hpp"
 #include <memory>
 
-class TreeNode
+class TreeNode : public Node
 {
-private:
-    int data_;
-    std::shared_ptr<TreeNode> parent_;
-    std::shared_ptr<TreeNode> left_;
-    std::shared_ptr<TreeNode> right_;
 public:
-    // Constructors
     TreeNode();
-    TreeNode(std::shared_ptr<TreeNode> p, int d);
-    
-    // Destructor
-    ~TreeNode();
-    
-    // Gets
-    int data();
+    TreeNode(std::shared_ptr<TreeNode> parent, const int data);
+
     std::shared_ptr<TreeNode> left();
     std::shared_ptr<TreeNode> right();
     std::shared_ptr<TreeNode> parent();
-    
-    // Sets
-    void data(int d);
-    void left(std::shared_ptr<TreeNode> l);
-    void right(std::shared_ptr<TreeNode> r);
-    void parent(std::shared_ptr<TreeNode> p);
-    
-    // Helpers
+
+    void left(std::shared_ptr<TreeNode> left);
+    void right(std::shared_ptr<TreeNode> right);
+    void parent(std::shared_ptr<TreeNode> parent);
+
     bool isLeaf();
     bool isLeftChild();
     bool isRightChild();
     bool hasLeftChild();
     bool hasRightChild();
     bool hasParent();
+
+private:
+    std::shared_ptr<TreeNode> parent_;
+    std::shared_ptr<TreeNode> left_;
+    std::shared_ptr<TreeNode> right_;
 };
 
 #endif // TREE_NODE_HPP

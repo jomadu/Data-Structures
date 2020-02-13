@@ -3,12 +3,12 @@ Author: Max Dunn
 ## Description
 I wanted to create a library of data structures in c++...so I did!
 ## Structures
-### Node
+### LinkedListNode
 Supports `LinkedList`, `DoubleLinkedList`, and `CircularDoubleLinkedList` objects.
 #### Private Members
 - `int data_`
-- `Node * prev_`
-- `Node * next_`
+- `LinkedListNode * prev_`
+- `LinkedListNode * next_`
 ### TreeNode
 Supports `BinarySearchTree` objects
 #### Private Members
@@ -23,23 +23,23 @@ Supports `Graph` objects
 - `int val_`
 - `std::unordered_map<int, std::shared_ptr<Vertex>> nbrs`
 ### LinkedList
-Singly Linked List implemented using `Node`
+Singly Linked List implemented using `LinkedListNode`
 #### Private Members
 - `int size`
-- `Node * head`
-- `Node * tail`
+- `LinkedListNode * head`
+- `LinkedListNode * tail`
 ### DoubleLinkedList
-Doubly Linked List implemented using `Node`
+Doubly Linked List implemented using `LinkedListNode`
 #### Private Members
 - `int size`
-- `Node * head`
-- `Node * tail`
+- `LinkedListNode * head`
+- `LinkedListNode * tail`
 ### CircularDoubleLinkedList
-Doubly Linked List implemented using `Node`
+Doubly Linked List implemented using `LinkedListNode`
 #### Private Members
 - `int size`
-- `Node * head`
-- `Node * tail`
+- `LinkedListNode * head`
+- `LinkedListNode * tail`
 ### Stack
 Stack implemented using `LinkedList`
 #### Private Members

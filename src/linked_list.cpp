@@ -19,11 +19,11 @@ int LinkedList::size()
 {
     return size_;
 }
-std::shared_ptr<Node> LinkedList::head()
+std::shared_ptr<LinkedListNode> LinkedList::head()
 {
     return head_;
 }
-std::shared_ptr<Node> LinkedList::tail()
+std::shared_ptr<LinkedListNode> LinkedList::tail()
 {
     return tail_;
 }
@@ -56,7 +56,7 @@ void LinkedList::data(int idx, int data)
 }
 void LinkedList::append(int data)
 {
-    auto newNode = std::make_shared<Node>(data);
+    auto newNode = std::make_shared<LinkedListNode>(data);
 
     if (this->isEmpty())
     {
@@ -73,7 +73,7 @@ void LinkedList::append(int data)
 }
 void LinkedList::prepend(int data)
 {
-    auto newNode = std::make_shared<Node>(data);
+    auto newNode = std::make_shared<LinkedListNode>(data);
 
     if (this->isEmpty())
     {
@@ -106,7 +106,7 @@ void LinkedList::insert(int idx, int data)
     // i.e. idx element of [1, size-1]
     else
     {
-        auto newNode = std::make_shared<Node>(data);
+        auto newNode = std::make_shared<LinkedListNode>(data);
         auto curr = head_;
         auto prev = head_;
         for (auto i = 0; i < idx; i++)
@@ -126,7 +126,7 @@ void LinkedList::removeHead()
     {
         return;
     }
-    // Single Node in List
+    // Single LinkedListNode in List
     else if (head_ == tail_)
     {
         head_.reset();
@@ -150,7 +150,7 @@ void LinkedList::removeTail()
     {
         return;
     }
-    // Single Node in List
+    // Single LinkedListNode in List
     else if (head_ == tail_)
     {
         tail_.reset();
@@ -220,9 +220,9 @@ void LinkedList::display()
     }
     std::cout << ss.str() + "EOL\n";
 }
-std::vector<std::shared_ptr<Node>> LinkedList::search(int data)
+std::vector<std::shared_ptr<LinkedListNode>> LinkedList::search(int data)
 {
-    std::vector<std::shared_ptr<Node>> results;
+    std::vector<std::shared_ptr<LinkedListNode>> results;
     auto curr = head_;
     for(auto i = 0; i < size(); i ++)
     {

@@ -5,7 +5,7 @@
 
 int CircularDoubleLinkedList::data(int idx)
 {
-    std::shared_ptr<Node> curr;
+    std::shared_ptr<LinkedListNode> curr;
 
     if (idx < 0 || idx >= size_)
         throw std::out_of_range("Data retrieval idx out of range.");
@@ -30,7 +30,7 @@ int CircularDoubleLinkedList::data(int idx)
 }
 void CircularDoubleLinkedList::data(int idx, int data)
 {
-    std::shared_ptr<Node> curr;
+    std::shared_ptr<LinkedListNode> curr;
 
     if (idx < 0 || idx >= size_)
         throw std::out_of_range("Data retrieval idx out of range.");
@@ -55,7 +55,7 @@ void CircularDoubleLinkedList::data(int idx, int data)
 }
 void CircularDoubleLinkedList::append(int data)
 {
-    auto new_node = std::make_shared<Node>(data);
+    auto new_node = std::make_shared<LinkedListNode>(data);
 
     if (this->isEmpty())
     {
@@ -77,7 +77,7 @@ void CircularDoubleLinkedList::append(int data)
 }
 void CircularDoubleLinkedList::prepend(int data)
 {
-    auto new_node = std::make_shared<Node>(data);
+    auto new_node = std::make_shared<LinkedListNode>(data);
 
     if (this->isEmpty())
     {
@@ -112,9 +112,9 @@ void CircularDoubleLinkedList::insert(int idx, int data)
     // Insert in the middle
     else
     {
-        auto new_node = std::make_shared<Node>(data);
-        std::shared_ptr<Node> curr;
-        std::shared_ptr<Node> prev;
+        auto new_node = std::make_shared<LinkedListNode>(data);
+        std::shared_ptr<LinkedListNode> curr;
+        std::shared_ptr<LinkedListNode> prev;
 
         if (idx < size_ / 2)
         {
@@ -148,7 +148,7 @@ void CircularDoubleLinkedList::removeHead()
     {
         return;
     }
-    // Single Node in List
+    // Single LinkedListNode in List
     else if (head_ == tail_)
     {
         head_.reset();
@@ -174,7 +174,7 @@ void CircularDoubleLinkedList::removeTail()
     {
         return;
     }
-    // Single Node in List
+    // Single LinkedListNode in List
     else if (head_ == tail_)
     {
         tail_.reset();
@@ -210,8 +210,8 @@ void CircularDoubleLinkedList::remove(int idx)
     else
     {
         auto curr = head_;
-        std::shared_ptr<Node> prev;
-        std::shared_ptr<Node> next;
+        std::shared_ptr<LinkedListNode> prev;
+        std::shared_ptr<LinkedListNode> next;
         if (idx < size_ / 2)
         {
             curr = head_;

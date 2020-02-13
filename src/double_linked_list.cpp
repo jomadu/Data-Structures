@@ -6,7 +6,7 @@
 
 int DoubleLinkedList::data(int idx)
 {
-    std::shared_ptr<Node> curr;
+    std::shared_ptr<LinkedListNode> curr;
 
     if (idx < 0 || idx >= size_)
         throw std::out_of_range("Data retrieval idx out of range.");
@@ -32,7 +32,7 @@ int DoubleLinkedList::data(int idx)
 
 void DoubleLinkedList::data(int idx, int data)
 {
-    std::shared_ptr<Node> curr;
+    std::shared_ptr<LinkedListNode> curr;
 
     if (idx < 0 || idx >= size_)
         throw std::out_of_range("Data retrieval idx out of range.");
@@ -57,7 +57,7 @@ void DoubleLinkedList::data(int idx, int data)
 }
 void DoubleLinkedList::append(int data)
 {
-    auto newNode = std::make_shared<Node>(data);
+    auto newNode = std::make_shared<LinkedListNode>(data);
 
     if (this->isEmpty())
     {
@@ -75,7 +75,7 @@ void DoubleLinkedList::append(int data)
 }
 void DoubleLinkedList::prepend(int data)
 {
-    auto newNode = std::make_shared<Node>(data);
+    auto newNode = std::make_shared<LinkedListNode>(data);
 
     if (head_ == nullptr)
     {
@@ -106,9 +106,9 @@ void DoubleLinkedList::insert(int idx, int data)
     // Insert in the middle
     else
     {
-        auto newNode = std::make_shared<Node>(data);
-        std::shared_ptr<Node> curr;
-        std::shared_ptr<Node> prev;
+        auto newNode = std::make_shared<LinkedListNode>(data);
+        std::shared_ptr<LinkedListNode> curr;
+        std::shared_ptr<LinkedListNode> prev;
 
         if (idx < size_ / 2)
         {
@@ -142,7 +142,7 @@ void DoubleLinkedList::removeHead()
     {
         return;
     }
-    // Single Node in List
+    // Single LinkedListNode in List
     else if (head_ == tail_)
     {
         head_.reset();
@@ -167,7 +167,7 @@ void DoubleLinkedList::removeTail()
     {
         return;
     }
-    // Single Node in List
+    // Single LinkedListNode in List
     else if (head_ == tail_)
     {
         tail_.reset();
@@ -202,8 +202,8 @@ void DoubleLinkedList::remove(int idx)
     else
     {
         auto curr = head_;
-        std::shared_ptr<Node> prev;
-        std::shared_ptr<Node> next;
+        std::shared_ptr<LinkedListNode> prev;
+        std::shared_ptr<LinkedListNode> next;
         if (idx < size_ / 2)
         {
             curr = head_;

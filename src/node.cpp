@@ -10,7 +10,7 @@
 /**
  * @brief Construct a new Node::Node
  */
-Node::Node() : next_(nullptr), prev_(nullptr)
+Node::Node() : data_(0)
 {
 }
 
@@ -19,9 +19,8 @@ Node::Node() : next_(nullptr), prev_(nullptr)
  * 
  * @param data initial data_
  */
-Node::Node(const int data) : Node()
+Node::Node(const int data) : data_(data)
 {
-    data_ = data;
 }
 
 /**
@@ -33,27 +32,6 @@ int Node::data() const
 {
     return data_;
 }
-
-/**
- * @brief Get next_
- * 
- * @return std::shared_ptr<Node> next_
- */
-std::shared_ptr<Node> Node::next() const
-{
-    return next_;
-}
-
-/**
- * @brief Get prev_
- * 
- * @return std::shared_ptr<Node> prev_
- */
-std::shared_ptr<Node> Node::prev() const
-{
-    return prev_;
-}
-
 /**
  * @brief Set data_
  * 
@@ -62,24 +40,4 @@ std::shared_ptr<Node> Node::prev() const
 void Node::data(const int data)
 {
     data_ = data;
-}
-
-/**
- * @brief Set next_
- * 
- * @param next 
- */
-void Node::next(std::shared_ptr<Node> next)
-{
-    next_ = next;
-}
-
-/**
- * @brief Set prev_
- * 
- * @param prev 
- */
-void Node::prev(std::shared_ptr<Node> prev)
-{
-    prev_ = prev;
-}
+} 

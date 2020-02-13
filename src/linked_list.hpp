@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <memory>
 #include <vector>
-#include "node.hpp"
+#include "linked_list_node.hpp"
 
 class LinkedList
 {
@@ -13,8 +13,8 @@ public:
     ~LinkedList();
     
     int size();
-    std::shared_ptr<Node> head();
-    std::shared_ptr<Node> tail();
+    std::shared_ptr<LinkedListNode> head();
+    std::shared_ptr<LinkedListNode> tail();
     virtual int data(int idx);
     virtual void data(int idx, int data);
     virtual void append(int data);
@@ -25,13 +25,13 @@ public:
     virtual void remove(int idx);
     void clear();
     void display();
-    std::vector<std::shared_ptr<Node>> search(int data);
+    std::vector<std::shared_ptr<LinkedListNode>> search(int data);
     bool isEmpty();
 
 protected:
     int size_;
-    std::shared_ptr<Node> head_;
-    std::shared_ptr<Node> tail_;
+    std::shared_ptr<LinkedListNode> head_;
+    std::shared_ptr<LinkedListNode> tail_;
 };
 
 #endif // LINKED_LIST_HPP
