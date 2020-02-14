@@ -1,3 +1,14 @@
+/**
+ * @file linked_list.hpp
+ * @author Max Dunn (maxdunn123@gmail.com)
+ * @copyright Copyright Max Dunn (c) 2020. All rights reserved.
+ * 
+ * @brief LinkedList declaration
+ * Inherited by: DoubleLinkedList, CircularDoubleLinkedList
+ * # size_ : int
+ * # head_ : std::shared_ptr<LinkedListNode>
+ * # tail_ : std::shared_ptr<LinkedListNode>
+ */
 #ifndef LINKED_LIST_HPP
 #define LINKED_LIST_HPP
 

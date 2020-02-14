@@ -1,14 +1,217 @@
 /**
- * @file linked_list.cpp
+ * @file linked_list_code_sample.cpp
  * @author Max Dunn (maxdunn123@gmail.com)
  * @copyright Copyright Max Dunn (c) 2020. All rights reserved.
  * 
- * @brief LinkedList implementation
+ * @brief LinkedList Code Sample
+ * 
+ * This sample code demonstrates my ability to:
+ * - write classes
+ * - employ inheritance
+ * - employ polymorphism
+ * - combine classes to create useful data structures
+ * 
+ * Instructions:
+ * 1) If not already done, change the file extension from .txt to .cpp
+ *     $ mv linked_list_sample_code.txt linked_list_sample_code.cpp
+ * 2) Compile:
+ *     $ g++ -std=c++11 linked_list_sample_code.cpp -o linked_list_sample_code
+ * 3) Run:
+ *     $ ./linked_list_sample_code
+ * 
+ * Sample Output:
+ * $ ./linked_list_sample_code
+ * 
+ * -----------------------
+ * Linked List Sample Code
+ * -----------------------
+ * Author: Max Dunn (maxdunn123@gmail.com)
+ * GitHub: git@github.com/jomadu
+ * LinkedIn: www.linkedin.com/in/maxdunn123
+ * -----------------------
+ * Adding to LinkedList using LinkedList::append()
+ * { [0] }
+ * { [0] [1] }
+ * { [0] [1] [2] }
+ * { [0] [1] [2] [3] }
+ * { [0] [1] [2] [3] [4] }
+ * Done adding.
+ * { [0] [1] [2] [3] [4] }
+ * Clearing LinkedList by calling LinkedList::removeHead()
+ * { [1] [2] [3] [4] }
+ * { [2] [3] [4] }
+ * { [3] [4] }
+ * { [4] }
+ * { }
+ * Adding to LinkedList using LinkedList::prepend()
+ * { [0] }
+ * { [1] [0] }
+ * { [2] [1] [0] }
+ * { [3] [2] [1] [0] }
+ * { [4] [3] [2] [1] [0] }
+ * Clearing LinkedList by calling LinkedList::removeTail()
+ * { [4] [3] [2] [1] }
+ * { [4] [3] [2] }
+ * { [4] [3] }
+ * { [4] }
+ * { }
+ * 
  */
-#include "linked_list.hpp"
+
+#include <memory>
+#include <vector>
 #include <stdexcept>
 #include <sstream>
 #include <iostream>
+
+class Node
+{
+public:
+    Node();
+    Node(const int data);
+
+    int data() const;
+    void data(const int data);
+
+protected:
+    int data_;
+};
+
+class LinkedListNode : public Node
+{
+public:
+    LinkedListNode();
+    LinkedListNode(const int data);
+
+    std::shared_ptr<LinkedListNode> next() const;
+    std::shared_ptr<LinkedListNode> prev() const;
+    void next(std::shared_ptr<LinkedListNode> next);
+    void prev(std::shared_ptr<LinkedListNode> prev);
+
+private:
+    std::shared_ptr<LinkedListNode> next_;
+    std::shared_ptr<LinkedListNode> prev_;
+};
+
+class LinkedList
+{
+public:
+    LinkedList();
+
+    int size() const;
+    std::shared_ptr<LinkedListNode> head() const;
+    std::shared_ptr<LinkedListNode> tail() const;
+
+    virtual int data(const int idx) const;
+    virtual void data(const int idx, const int data);
+    virtual void append(const int data);
+    virtual void prepend(const int data);
+    virtual void insert(const int idx, const int data);
+    virtual void removeHead();
+    virtual void removeTail();
+    virtual void remove(const int idx);
+    void clear();
+    std::vector<std::shared_ptr<LinkedListNode>> search(const int data) const;
+    bool isEmpty() const;
+    void display() const;
+
+protected:
+    int size_;
+    std::shared_ptr<LinkedListNode> head_;
+    std::shared_ptr<LinkedListNode> tail_;
+};
+
+/**
+ * @brief Construct a new Node::Node
+ */
+Node::Node() : data_(0)
+{
+}
+
+/**
+ * @brief Construct a new Node::Node
+ * 
+ * @param data initial data_
+ */
+Node::Node(const int data) : data_(data)
+{
+}
+
+/**
+ * @brief Get data_
+ * 
+ * @return int data_
+ */
+int Node::data() const
+{
+    return data_;
+}
+/**
+ * @brief Set data_
+ * 
+ * @param data
+ */
+void Node::data(const int data)
+{
+    data_ = data;
+}
+
+/**
+ * @brief Construct a new LinkedListNode::LinkedListNode
+ */
+LinkedListNode::LinkedListNode() : next_(nullptr), prev_(nullptr)
+{
+}
+
+/**
+ * @brief Construct a new LinkedListNode::LinkedListNode
+ * 
+ * @param data initial data_
+ */
+LinkedListNode::LinkedListNode(const int data) : next_(nullptr), prev_(nullptr)
+{
+    data_ = data;
+}
+
+/**
+ * @brief Get next_
+ * 
+ * @return std::shared_ptr<LinkedListNode> next_
+ */
+std::shared_ptr<LinkedListNode> LinkedListNode::next() const
+{
+    return next_;
+}
+
+/**
+ * @brief Get prev_
+ * 
+ * @return std::shared_ptr<LinkedListNode> prev_
+ */
+std::shared_ptr<LinkedListNode> LinkedListNode::prev() const
+{
+    return prev_;
+}
+
+/**
+ * @brief Set next_
+ * 
+ * @param next 
+ */
+void LinkedListNode::next(std::shared_ptr<LinkedListNode> next)
+{
+    next_ = next;
+}
+
+/**
+ * @brief Set prev_
+ * 
+ * @param prev 
+ */
+void LinkedListNode::prev(std::shared_ptr<LinkedListNode> prev)
+{
+    prev_ = prev;
+}
 
 /**
  * @brief Construct a new LinkedList::Linked List
@@ -318,4 +521,48 @@ void LinkedList::display() const
         curr = curr->next();
     }
     std::cout << ss.str() << "}" << std::endl;
+}
+
+/**
+ * @brief Linked List Sample Code
+ * 
+ * @return int 
+ */
+int main()
+{
+    std::cout << "-----------------------" << std::endl;
+    std::cout << "Linked List Sample Code" << std::endl;
+    std::cout << "-----------------------" << std::endl;
+    std::cout << "Author: Max Dunn (maxdunn123@gmail.com)" << std::endl;
+    std::cout << "GitHub: git@github.com/jomadu" << std::endl;
+    std::cout << "LinkedIn: www.linkedin.com/in/maxdunn123" << std::endl;
+    std::cout << "-----------------------" << std::endl;
+
+    LinkedList ll;
+    std::cout << "Adding to LinkedList using LinkedList::append()" << std::endl;
+    for (int i = 0; i < 5; i++)
+    {
+        ll.append(i);
+        ll.display();
+    }
+    std::cout << "Done adding." << std::endl;
+    ll.display();
+    std::cout << "Clearing LinkedList by calling LinkedList::removeHead()" << std::endl;
+    while (!ll.isEmpty())
+    {
+        ll.removeHead();
+        ll.display();
+    }
+    std::cout << "Adding to LinkedList using LinkedList::prepend()" << std::endl;
+    for (int i = 0; i < 5; i++)
+    {
+        ll.prepend(i);
+        ll.display();
+    }
+    std::cout << "Clearing LinkedList by calling LinkedList::removeTail()" << std::endl;
+    while (!ll.isEmpty())
+    {
+        ll.removeTail();
+        ll.display();
+    }
 }
