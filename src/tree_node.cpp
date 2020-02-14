@@ -19,7 +19,7 @@ TreeNode::TreeNode(std::shared_ptr<TreeNode> parent, const int data) : parent_(p
 }
 
 /**
- * @brief Gets left_
+ * @brief Get left_
  * 
  * @return std::shared_ptr<TreeNode> left_
  */
@@ -29,7 +29,7 @@ std::shared_ptr<TreeNode> TreeNode::left()
 }
 
 /**
- * @brief Gets right_
+ * @brief Get right_
  * 
  * @return std::shared_ptr<TreeNode> right_
  */
@@ -39,7 +39,7 @@ std::shared_ptr<TreeNode> TreeNode::right()
 }
 
 /**
- * @brief Gets parent_
+ * @brief Get parent_
  * 
  * @return std::shared_ptr<TreeNode> parent_
  */
@@ -49,7 +49,7 @@ std::shared_ptr<TreeNode> TreeNode::parent()
 }
 
 /**
- * @brief Sets left_
+ * @brief Set left_
  * 
  * @param left left_
  */
@@ -59,7 +59,7 @@ void TreeNode::left(std::shared_ptr<TreeNode> left)
 }
 
 /**
- * @brief Sets right_
+ * @brief Set right_
  * 
  * @param right right_
  */
@@ -69,7 +69,7 @@ void TreeNode::right(std::shared_ptr<TreeNode> right)
 }
 
 /**
- * @brief Sets parent_
+ * @brief Set parent_
  * 
  * @param parent parent_
  */

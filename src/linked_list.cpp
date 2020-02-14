@@ -11,14 +11,14 @@
 #include <iostream>
 
 /**
- * @brief Construct a new LinkedList::Linked List
+ * @brief Construct a new LinkedList::LinkedList
  */
 LinkedList::LinkedList() : size_(0), head_(nullptr), tail_(nullptr)
 {
 }
 
 /**
- * @brief Gets size_
+ * @brief Get size_
  * 
  * @return int size_
  */
@@ -28,7 +28,7 @@ int LinkedList::size() const
 }
 
 /**
- * @brief Gets head_
+ * @brief Get head_
  * 
  * @return std::shared_ptr<LinkedListNode> head_
  */
@@ -38,7 +38,7 @@ std::shared_ptr<LinkedListNode> LinkedList::head() const
 }
 
 /**
- * @brief Gets tail_
+ * @brief Get tail_
  * 
  * @return std::shared_ptr<LinkedListNode> tail_
  */
@@ -48,7 +48,7 @@ std::shared_ptr<LinkedListNode> LinkedList::tail() const
 }
 
 /**
- * @brief Gets LinkedListNode::data_ from LinkedListNode at \p idx
+ * @brief Get LinkedListNode::data_ from LinkedListNode at \p idx
  * 
  * @param idx index in list. [0, (LinkedList::size_ - 1)]
  * @return int LinkedListNode::data_ from LinkedListNode at \p idx
@@ -70,7 +70,7 @@ int LinkedList::data(const int idx) const
 }
 
 /**
- * @brief Sets LinkedListNode::data_ from LinkedListNode at \p idx
+ * @brief Set LinkedListNode::data_ for LinkedListNode at \p idx
  * 
  * @param idx index in list. [0, (LinkedList::size_ - 1)]
  * @param data LinkedListNode::data_
