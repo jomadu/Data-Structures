@@ -1,3 +1,11 @@
+/**
+ * @file circular_double_linked_list.hpp
+ * @author Max Dunn (maxdunn123@gmail.com)
+ * @copyright Copyright Max Dunn (c) 2020. All rights reserved.
+ * 
+ * @brief CircularDoubleLinkedList declaration
+ * Inherits: LinkedList
+ */
 #ifndef CIRCULAR_DOUBLE_LINKED_LIST_HPP
 #define CIRCULAR_DOUBLE_LINKED_LIST_HPP
 

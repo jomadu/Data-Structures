@@ -1,8 +1,21 @@
+/**
+ * @file circular_double_linked_list.cpp
+ * @author Max Dunn (maxdunn123@gmail.com)
+ * @copyright Copyright Max Dunn (c) 2020. All rights reserved.
+ * 
+ * @brief CircularDoubleLinkedList implementation
+ */
+
 #include "circular_double_linked_list.hpp"
 #include <stdexcept>
-#include <sstream>
-#include <iostream>
 
+/**
+ * @brief Get LinkedListNode::data_ from LinkedListNode at \p idx.
+ * Overrides LinkedList::data(const int idx)
+ * 
+ * @param idx index in list. [0, (LinkedList::size_ - 1)]
+ * @return int LinkedListNode::data_ from LinkedListNode at \p idx
+ */
 int CircularDoubleLinkedList::data(const int idx) const
 {
     std::shared_ptr<LinkedListNode> curr;
@@ -28,6 +41,14 @@ int CircularDoubleLinkedList::data(const int idx) const
     }
     return curr->data();
 }
+
+/**
+ * @brief Set LinkedListNode::data_ for LinkedListNode at \p idx
+ * Overrides LinkedList::data(const int idx, const int data)
+ * 
+ * @param idx index in list. [0, (LinkedList::size_ - 1)]
+ * @param data LinkedListNode::data_
+ */
 void CircularDoubleLinkedList::data(const int idx, const int data)
 {
     std::shared_ptr<LinkedListNode> curr;
@@ -53,6 +74,13 @@ void CircularDoubleLinkedList::data(const int idx, const int data)
     }
     return curr->data(data);
 }
+
+/**
+ * @brief Appends list with a LinkedListNode with data_ = \p data
+ * Overrides LinkedList::append(const int data)
+ * 
+ * @param data LinkedListNode::data_
+ */
 void CircularDoubleLinkedList::append(const int data)
 {
     auto new_node = std::make_shared<LinkedListNode>(data);
@@ -75,6 +103,13 @@ void CircularDoubleLinkedList::append(const int data)
 
     size_++;
 }
+
+/**
+ * @brief Prepends list with a LinkedListNode with data_ = \p data
+ * Overrides LinkedList::prepend(const int data)
+ * 
+ * @param data LinkedListNode::data_
+ */
 void CircularDoubleLinkedList::prepend(const int data)
 {
     auto new_node = std::make_shared<LinkedListNode>(data);
@@ -97,21 +132,27 @@ void CircularDoubleLinkedList::prepend(const int data)
 
     size_++;
 }
+
+/**
+ * @brief Inserts a LinkedListNode with data_ = \p data at index \p idx
+ * Overrides LinkedList::insert(const int idx, const int data)
+ * 
+ * @param idx index in list. [0, (LinkedList::size_ - 1)]
+ * @param data LinkedListNode::data_
+ */
 void CircularDoubleLinkedList::insert(const int idx, const int data)
 {
-    // Insert as a insertHead
     if (idx <= 0)
     {
         prepend(data);
     }
-    // Insert as an insertTail
     else if (idx >= size_)
     {
         append(data);
     }
-    // Insert in the middle
     else
     {
+        // Insert in the middle
         auto new_node = std::make_shared<LinkedListNode>(data);
         std::shared_ptr<LinkedListNode> curr;
         std::shared_ptr<LinkedListNode> prev;
@@ -141,23 +182,27 @@ void CircularDoubleLinkedList::insert(const int idx, const int data)
         size_++;
     }
 }
+
+/**
+ * @brief Removes the first LinkedListNode from list
+ * Overrides LinkedList::removeHead()
+ */
 void CircularDoubleLinkedList::removeHead()
 {
-    // Empty List
     if (this->isEmpty())
     {
         return;
     }
-    // Single LinkedListNode in List
     else if (head_ == tail_)
     {
+        // Single node in List
         head_.reset();
         head_ = nullptr;
         tail_ = nullptr;
     }
-    // Multiple Nodes in list
     else
     {
+        // Multiple nodes in list
         auto second = head_->next();
         head_.reset();
         second->prev(tail_);
@@ -167,23 +212,27 @@ void CircularDoubleLinkedList::removeHead()
 
     size_--;
 }
+
+/**
+ * @brief Removes the last LinkedListNode from list
+ * Overrides LinkedList::removeTail()
+ */
 void CircularDoubleLinkedList::removeTail()
 {
-    // Empty List
     if (this->isEmpty())
     {
         return;
     }
-    // Single LinkedListNode in List
     else if (head_ == tail_)
     {
+        // Single node in List
         tail_.reset();
         head_ = nullptr;
         tail_ = nullptr;
     }
-    // Multiple Nodes in List
     else
     {
+        // Multiple nodes in List
         auto prev = tail_->prev();
         tail_.reset();
         prev->next(head_);
@@ -193,21 +242,26 @@ void CircularDoubleLinkedList::removeTail()
 
     size_--;
 }
+
+/**
+ * @brief Removes the LinkedListNode at index \p idx in the list
+ * Overrides LinkedList::remove(const int idx)
+ * 
+ * @param idx index in list. [0, (LinkedList::size_ - 1)]
+ */
 void CircularDoubleLinkedList::remove(const int idx)
 {
-    // Remove from head
     if (idx <= 0)
     {
         removeHead();
     }
-    // Remove from tail
     else if (idx >= (size_ - 1))
     {
         removeTail();
     }
-    // Remove from middle
     else
     {
+        // Remove from middle
         auto curr = head_;
         std::shared_ptr<LinkedListNode> prev;
         std::shared_ptr<LinkedListNode> next;
