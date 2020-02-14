@@ -1,9 +1,21 @@
+/**
+ * @file double_linked_list.cpp
+ * @author Max Dunn (maxdunn123@gmail.com)
+ * @copyright Copyright Max Dunn (c) 2020. All rights reserved.
+ * 
+ * @brief DoubleLinkedList implementation 
+ */
 
 #include "double_linked_list.hpp"
 #include <stdexcept>
-#include <sstream>
-#include <iostream>
 
+/**
+ * @brief Get LinkedListNode::data_ from LinkedListNode at \p idx.
+ * Overrides LinkedList::data(const int idx)
+ * 
+ * @param idx index in list. [0, (LinkedList::size_ - 1)]
+ * @return int LinkedListNode::data_ from LinkedListNode at \p idx
+ */
 int DoubleLinkedList::data(const int idx) const
 {
     std::shared_ptr<LinkedListNode> curr;
@@ -22,7 +34,7 @@ int DoubleLinkedList::data(const int idx) const
     else
     {
         curr = tail_;
-        for (auto i = size_ - 1 ; i > idx; i--)
+        for (auto i = size_ - 1; i > idx; i--)
         {
             curr = curr->prev();
         }
@@ -30,6 +42,13 @@ int DoubleLinkedList::data(const int idx) const
     return curr->data();
 }
 
+/**
+ * @brief Set LinkedListNode::data_ for LinkedListNode at \p idx
+ * Overrides LinkedList::data(const int idx, const int data)
+ * 
+ * @param idx index in list. [0, (LinkedList::size_ - 1)]
+ * @param data LinkedListNode::data_
+ */
 void DoubleLinkedList::data(const int idx, const int data)
 {
     std::shared_ptr<LinkedListNode> curr;
@@ -55,6 +74,13 @@ void DoubleLinkedList::data(const int idx, const int data)
     }
     return curr->data(data);
 }
+
+/**
+ * @brief Appends list with a LinkedListNode with data_ = \p data
+ * Overrides LinkedList::append(const int data)
+ * 
+ * @param data LinkedListNode::data_
+ */
 void DoubleLinkedList::append(const int data)
 {
     auto newNode = std::make_shared<LinkedListNode>(data);
@@ -73,6 +99,13 @@ void DoubleLinkedList::append(const int data)
 
     size_++;
 }
+
+/**
+ * @brief Prepends list with a LinkedListNode with data_ = \p data
+ * Overrides LinkedList::prepend(const int data)
+ * 
+ * @param data LinkedListNode::data_
+ */
 void DoubleLinkedList::prepend(const int data)
 {
     auto newNode = std::make_shared<LinkedListNode>(data);
@@ -91,21 +124,27 @@ void DoubleLinkedList::prepend(const int data)
 
     size_++;
 }
+
+/**
+ * @brief Inserts a LinkedListNode with data_ = \p data at index \p idx
+ * Overrides LinkedList::insert(const int idx, const int data)
+ * 
+ * @param idx index in list. [0, (LinkedList::size_ - 1)]
+ * @param data LinkedListNode::data_
+ */
 void DoubleLinkedList::insert(const int idx, const int data)
 {
-    // Insert as a insertHead
     if (idx <= 0)
     {
         prepend(data);
     }
-    // Insert as an insertTail
     else if (idx >= size_)
     {
         append(data);
     }
-    // Insert in the middle
     else
     {
+        // Insert in the middle
         auto newNode = std::make_shared<LinkedListNode>(data);
         std::shared_ptr<LinkedListNode> curr;
         std::shared_ptr<LinkedListNode> prev;
@@ -135,23 +174,27 @@ void DoubleLinkedList::insert(const int idx, const int data)
         size_++;
     }
 }
+
+/**
+ * @brief Removes the first LinkedListNode from list
+ * Overrides LinkedList::removeHead()
+ */
 void DoubleLinkedList::removeHead()
 {
-    // Empty List
     if (this->isEmpty())
     {
         return;
     }
-    // Single LinkedListNode in List
     else if (head_ == tail_)
     {
+        // Single node in List
         head_.reset();
         head_ = nullptr;
         tail_ = nullptr;
     }
-    // Multiple Nodes in list
     else
     {
+        // Multiple nodes in list
         auto next = head_->next();
         head_.reset();
         next->prev(nullptr);
@@ -160,23 +203,27 @@ void DoubleLinkedList::removeHead()
 
     size_--;
 }
+
+/**
+ * @brief Removes the last LinkedListNode from list
+ * Overrides LinkedList::removeTail()
+ */
 void DoubleLinkedList::removeTail()
 {
-    // Empty List
     if (this->isEmpty())
     {
         return;
     }
-    // Single LinkedListNode in List
     else if (head_ == tail_)
     {
+        // Single node in List
         tail_.reset();
         head_ = nullptr;
         tail_ = nullptr;
     }
-    // Multiple Nodes in List
     else
     {
+        // Multiple node in List
         auto prev = tail_->prev();
         tail_.reset();
         prev->next(nullptr);
@@ -185,22 +232,26 @@ void DoubleLinkedList::removeTail()
 
     size_--;
 }
+
+/**
+ * @brief Removes the LinkedListNode at index \p idx in the list
+ * Overrides LinkedList::remove(const int idx)
+ * 
+ * @param idx index in list. [0, (LinkedList::size_ - 1)]
+ */
 void DoubleLinkedList::remove(const int idx)
 {
-    // Remove from head
     if (idx <= 0)
     {
         removeHead();
     }
-    // Remove from tail
     else if (idx >= (size_ - 1))
     {
         removeTail();
     }
-    // Remove from middle
-    // i.e. idx element of [1, size-2]
     else
     {
+        // Remove from middle
         auto curr = head_;
         std::shared_ptr<LinkedListNode> prev;
         std::shared_ptr<LinkedListNode> next;

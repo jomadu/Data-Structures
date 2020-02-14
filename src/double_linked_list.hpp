@@ -1,3 +1,11 @@
+/**
+ * @file double_linked_list.hpp
+ * @author Max Dunn (maxdunn123@gmail.com)
+ * @copyright Copyright Max Dunn (c) 2020. All rights reserved.
+ * 
+ * @brief DoubleLinkedList declaration
+ * Inherits: LinkedList
+ */
 #ifndef DOUBLE_LINKED_LIST_HPP
 #define DOUBLE_LINKED_LIST_HPP
 
