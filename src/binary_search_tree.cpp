@@ -1,69 +1,59 @@
+/**
+ * @file binary_search_tree.cpp
+ * @author Max Dunn (maxdunn123@gmail.com)
+ * @copyright Copyright Max Dunn (c) 2020. All rights reserved.
+ * 
+ * @brief BinarySearchTree implementation
+ */
 #include "binary_search_tree.hpp"
 #include <queue>
 #include <map>
 #include <iostream>
 #include <sstream>
 
-std::shared_ptr<TreeNode> BinarySearchTree::root()
+/**
+ * @brief Get root_
+ * 
+ * @return std::shared_ptr<TreeNode> root_ 
+ */
+std::shared_ptr<TreeNode> BinarySearchTree::root() const
 {
     return root_;
 }
-void BinarySearchTree::insert(int v)
+
+/**
+ * @brief Insert \p data into the tree
+ * 
+ * @param data 
+ */
+void BinarySearchTree::insert(const int data)
 {
     if (root_ == nullptr)
     {
-        root_ = std::make_shared<TreeNode>(nullptr, v);
+        root_ = std::make_shared<TreeNode>(nullptr, data);
     }
     else
     {
-        insert_rec(root_, v);
+        insert_rec(root_, data);
     }
 }
-void BinarySearchTree::insert_rec(std::shared_ptr<TreeNode> n, int v)
-{
-    // Base Case
-    if (n == nullptr)
-    {
-        n = std::make_shared<TreeNode>(n->parent(), v);
-    }
-    // Look Left
-    else if (n->data() >= v)
-    {
-        //Insert to empty child?
-        if (!n->hasLeftChild())
-        {
-            auto c = std::make_shared<TreeNode>(n, v);
-            n->left(c);
-        }
-        //Recurse
-        else
-        {
-            insert_rec(n->left(), v);
-        }
-    }
-    // Look Right
-    else
-    {
-        //Insert to empty child?
-        if (!n->hasRightChild())
-        {
-            auto c = std::make_shared<TreeNode>(n, v);
-            n->right(c);
-        }
-        //Recurse
-        else
-        {
-            insert_rec(n->right(), v);
-        }
-    }
-}
-void BinarySearchTree::remove(int v)
+
+/**
+ * @brief Remove first found instance of \p data in tree using a depth first search
+ * 
+ * @param data 
+ */
+void BinarySearchTree::remove(const int data)
 {
     if (root_)
     {
-        remove_rec(root_, v);
+        remove_rec(root_, data);
     }
 }
+
+/**
+ * @brief Removes all nodes from Tree
+ */
 void BinarySearchTree::clear()
 {
     if (root_)
@@ -72,145 +62,16 @@ void BinarySearchTree::clear()
     }
 }
 
-void BinarySearchTree::remove_rec(std::shared_ptr<TreeNode> n, int v)
-{
-    //Cleaning input
-    if (n == nullptr)
-    {
-        return;
-    }
-    //Check if n is the node we are searching for
-    else if (n->data() == v)
-    {
-        //Case of has no children
-        if (n->isLeaf())
-        {
-            //n is root_
-            if (n == root_)
-            {
-                root_.reset();
-            }
-            //n is not root_
-            else
-            {
-                if (n->isLeftChild())
-                {
-                    n->parent()->left(nullptr);
-                }
-                else
-                {
-                    n->parent()->right(nullptr);
-                }
-                n.reset();
-            }
-        }
-        //Case of has only one child
-        else if (n->hasLeftChild() != n->hasRightChild())
-        {
-            std::shared_ptr<TreeNode> c;
-            if (n->hasLeftChild())
-            {
-                c = n->left();
-            }
-            else
-            {
-                c = n->right();
-            }
-
-            //n is root_
-            if (n == root_)
-            {
-                c->parent(nullptr);
-                n.reset();
-                root_ = c;
-            }
-
-            //n is not root_
-            else
-            {
-                if (n->isLeftChild())
-                {
-                    n->parent()->left(c);
-                }
-                else
-                {
-                    n->parent()->right(c);
-                }
-                c->parent(n->parent());
-                n.reset();
-            }
-        }
-        //Case of has two children
-        else
-        {
-            std::shared_ptr<TreeNode> left_sub_bin_tree_max;
-            std::shared_ptr<TreeNode> right_sub_bin_tree_max;
-            std::shared_ptr<TreeNode> new_sub_bin_tree_root;
-            auto left_sub_bin_tree_max_height = 0;
-            auto right_sub_bin_tree_max_height = 0;
-
-            //Find inner-left leaf
-            left_sub_bin_tree_max = findMax(n->left());
-            left_sub_bin_tree_max_height = getHeight(left_sub_bin_tree_max);
-
-            //Find inner-right leaf
-            right_sub_bin_tree_max = findMin(n->right());
-            right_sub_bin_tree_max_height = getHeight(left_sub_bin_tree_max);
-
-            //Decide which inner leaf to use
-            if (left_sub_bin_tree_max_height <= right_sub_bin_tree_max_height)
-            {
-                new_sub_bin_tree_root = left_sub_bin_tree_max;
-            }
-            else
-            {
-                new_sub_bin_tree_root = right_sub_bin_tree_max;
-            }
-
-            //Adjust the root_ node of the SubBinarySearchTree
-            //chop off the leaf
-            if (new_sub_bin_tree_root->isLeftChild())
-            {
-                new_sub_bin_tree_root->parent()->left(nullptr);
-            }
-            else
-            {
-                new_sub_bin_tree_root->parent()->right(nullptr);
-            }
-            //attach the leaf
-            new_sub_bin_tree_root->left(n->left());
-            new_sub_bin_tree_root->right(n->right());
-
-            //address if the SubBinarySearchTree is full tree
-            if (n == root_)
-            {
-                new_sub_bin_tree_root->parent(nullptr);
-                root_ = new_sub_bin_tree_root;
-            }
-            else
-            {
-                new_sub_bin_tree_root->parent(n->parent());
-            }
-            n.reset();
-        }
-    }
-    // Look Left
-    else if (n->data() >= v)
-    {
-        // Recurse
-        remove_rec(n->left(), v);
-    }
-    // Look Right
-    else if (n->data() < v)
-    {
-        // Recurse
-        remove_rec(n->right(), v);
-    }
-}
-int BinarySearchTree::getDepth(std::shared_ptr<TreeNode> n)
+/**
+ * @brief Evaluate depth of \p node
+ * 
+ * @param node to get depth of
+ * @return int depth of \p node
+ */
+int BinarySearchTree::getDepth(std::shared_ptr<TreeNode> node) const
 {
     auto depth = 0;
-    auto curr = n;
+    auto curr = node;
 
     while (curr->hasParent())
     {
@@ -220,17 +81,24 @@ int BinarySearchTree::getDepth(std::shared_ptr<TreeNode> n)
 
     return depth;
 }
-int BinarySearchTree::getHeight(std::shared_ptr<TreeNode> n)
+
+/**
+ * @brief Evaluate height of \p node
+ * 
+ * @param node to get height of
+ * @return int height of \p node
+ */
+int BinarySearchTree::getHeight(std::shared_ptr<TreeNode> node) const
 {
     //Base Case
-    if (n == nullptr)
+    if (node == nullptr)
     {
         return 0;
     }
     else
     {
-        auto leftHeight = getHeight(n->left());
-        auto rightHeight = getHeight(n->right());
+        auto leftHeight = getHeight(node->left());
+        auto rightHeight = getHeight(node->right());
 
         if (leftHeight > rightHeight)
         {
@@ -242,7 +110,14 @@ int BinarySearchTree::getHeight(std::shared_ptr<TreeNode> n)
         }
     }
 }
-std::shared_ptr<TreeNode> BinarySearchTree::findMax(std::shared_ptr<TreeNode> rt)
+
+/**
+ * @brief Returns node with maximum value in tree with root \p rt
+ * 
+ * @param rt root node of search
+ * @return std::shared_ptr<TreeNode>
+ */
+std::shared_ptr<TreeNode> BinarySearchTree::findMax(std::shared_ptr<TreeNode> rt) const
 {
     // traverse as far right as you can go, then return that node
     auto curr = rt;
@@ -252,7 +127,14 @@ std::shared_ptr<TreeNode> BinarySearchTree::findMax(std::shared_ptr<TreeNode> rt
     }
     return curr;
 }
-std::shared_ptr<TreeNode> BinarySearchTree::findMin(std::shared_ptr<TreeNode> rt)
+
+/**
+ * @brief Returns node with minimum value in tree with root \p rt
+ * 
+ * @param rt root node of search
+ * @return std::shared_ptr<TreeNode> 
+ */
+std::shared_ptr<TreeNode> BinarySearchTree::findMin(std::shared_ptr<TreeNode> rt) const
 {
     // traverse as far left as you can go, then return that node
     auto curr = rt;
@@ -262,7 +144,15 @@ std::shared_ptr<TreeNode> BinarySearchTree::findMin(std::shared_ptr<TreeNode> rt
     }
     return curr;
 }
-std::shared_ptr<TreeNode> BinarySearchTree::search(std::shared_ptr<TreeNode> rt, int v)
+
+/**
+ * @brief Returns first node with data matching \p data
+ * 
+ * @param rt root node of search
+ * @param data to compare
+ * @return std::shared_ptr<TreeNode> 
+ */
+std::shared_ptr<TreeNode> BinarySearchTree::search(std::shared_ptr<TreeNode> rt, const int data) const
 {
     std::shared_ptr<TreeNode> ret;
 
@@ -272,19 +162,19 @@ std::shared_ptr<TreeNode> BinarySearchTree::search(std::shared_ptr<TreeNode> rt,
         ret = nullptr;
     }
     // Base Case (Found)
-    else if (rt->data() == v)
+    else if (rt->data() == data)
     {
         ret = rt;
     }
     // Recurse Left
-    else if (rt->data() >= v)
+    else if (rt->data() >= data)
     {
-        ret = search(rt->left(), v);
+        ret = search(rt->left(), data);
     }
     // Recurse Right
-    else if (rt->data() < v)
+    else if (rt->data() < data)
     {
-        ret = search(rt->right(), v);
+        ret = search(rt->right(), data);
     }
     else
     {
@@ -294,7 +184,13 @@ std::shared_ptr<TreeNode> BinarySearchTree::search(std::shared_ptr<TreeNode> rt,
 
     return ret;
 }
-void BinarySearchTree::display(std::shared_ptr<TreeNode> rt)
+
+/**
+ * @brief Displays the tree over cout from root node \p rt
+ * 
+ * @param rt node to display from
+ */
+void BinarySearchTree::display(std::shared_ptr<TreeNode> rt) const
 {
     std::stringstream ss;
     std::queue<std::shared_ptr<TreeNode>> q;
@@ -338,7 +234,14 @@ void BinarySearchTree::display(std::shared_ptr<TreeNode> rt)
     }
 }
 
-std::vector<int> BinarySearchTree::getDataDF(std::shared_ptr<TreeNode> rt)
+/**
+ * @brief Performs depth first search of tree starting at \p rt ,
+ * then returns a vector of node data in DFS order
+ * 
+ * @param rt 
+ * @return std::vector<int> node data in DFS order
+ */
+std::vector<int> BinarySearchTree::getDataDF(std::shared_ptr<TreeNode> rt) const
 {
     std::vector<int> ret;
     if (rt == nullptr)
@@ -361,7 +264,15 @@ std::vector<int> BinarySearchTree::getDataDF(std::shared_ptr<TreeNode> rt)
         return ret;
     }
 }
-std::vector<int> BinarySearchTree::getDataBF(std::shared_ptr<TreeNode> rt)
+
+/**
+ * @brief Performs breadth first search of tree starting at \p rt ,
+ * then returns a vector of node data in BFS order
+ * 
+ * @param rt 
+ * @return std::vector<int> node data in BFS order
+ */
+std::vector<int> BinarySearchTree::getDataBF(std::shared_ptr<TreeNode> rt) const
 {
     std::queue<std::shared_ptr<TreeNode>> q;
     // list of sets - each list is a level
@@ -404,5 +315,192 @@ std::vector<int> BinarySearchTree::getDataBF(std::shared_ptr<TreeNode> rt)
         {
             ret.push_back(node);
         }
+    }
+}
+
+/**
+ * @brief Insert recursive helper
+ * 
+ * @param node root
+ * @param data to insert
+ */
+void BinarySearchTree::insert_rec(std::shared_ptr<TreeNode> node, const int data)
+{
+    // Base Case
+    if (node == nullptr)
+    {
+        node = std::make_shared<TreeNode>(node->parent(), data);
+    }
+    // Look Left
+    else if (node->data() >= data)
+    {
+        //Insert to empty child?
+        if (!node->hasLeftChild())
+        {
+            auto c = std::make_shared<TreeNode>(node, data);
+            node->left(c);
+        }
+        //Recurse
+        else
+        {
+            insert_rec(node->left(), data);
+        }
+    }
+    // Look Right
+    else
+    {
+        //Insert to empty child?
+        if (!node->hasRightChild())
+        {
+            auto c = std::make_shared<TreeNode>(node, data);
+            node->right(c);
+        }
+        //Recurse
+        else
+        {
+            insert_rec(node->right(), data);
+        }
+    }
+}
+
+/**
+ * @brief Remove recursive helper
+ * 
+ * @param node root
+ * @param data to remove
+ */
+void BinarySearchTree::remove_rec(std::shared_ptr<TreeNode> node, const int data)
+{
+    //Cleaning input
+    if (node == nullptr)
+    {
+        return;
+    }
+    //Check if node is the node we are searching for
+    else if (node->data() == data)
+    {
+        //Case of has no children
+        if (node->isLeaf())
+        {
+            //node is root_
+            if (node == root_)
+            {
+                root_.reset();
+            }
+            //node is not root_
+            else
+            {
+                if (node->isLeftChild())
+                {
+                    node->parent()->left(nullptr);
+                }
+                else
+                {
+                    node->parent()->right(nullptr);
+                }
+                node.reset();
+            }
+        }
+        //Case of has only one child
+        else if (node->hasLeftChild() != node->hasRightChild())
+        {
+            std::shared_ptr<TreeNode> c;
+            if (node->hasLeftChild())
+            {
+                c = node->left();
+            }
+            else
+            {
+                c = node->right();
+            }
+
+            //node is root_
+            if (node == root_)
+            {
+                c->parent(nullptr);
+                node.reset();
+                root_ = c;
+            }
+
+            //node is not root_
+            else
+            {
+                if (node->isLeftChild())
+                {
+                    node->parent()->left(c);
+                }
+                else
+                {
+                    node->parent()->right(c);
+                }
+                c->parent(node->parent());
+                node.reset();
+            }
+        }
+        //Case of has two children
+        else
+        {
+            std::shared_ptr<TreeNode> left_sub_bin_tree_max;
+            std::shared_ptr<TreeNode> right_sub_bin_tree_max;
+            std::shared_ptr<TreeNode> new_sub_bin_tree_root;
+            auto left_sub_bin_tree_max_height = 0;
+            auto right_sub_bin_tree_max_height = 0;
+
+            //Find inner-left leaf
+            left_sub_bin_tree_max = findMax(node->left());
+            left_sub_bin_tree_max_height = getHeight(left_sub_bin_tree_max);
+
+            //Find inner-right leaf
+            right_sub_bin_tree_max = findMin(node->right());
+            right_sub_bin_tree_max_height = getHeight(left_sub_bin_tree_max);
+
+            //Decide which inner leaf to use
+            if (left_sub_bin_tree_max_height <= right_sub_bin_tree_max_height)
+            {
+                new_sub_bin_tree_root = left_sub_bin_tree_max;
+            }
+            else
+            {
+                new_sub_bin_tree_root = right_sub_bin_tree_max;
+            }
+
+            //Adjust the root_ node of the SubBinarySearchTree
+            //chop off the leaf
+            if (new_sub_bin_tree_root->isLeftChild())
+            {
+                new_sub_bin_tree_root->parent()->left(nullptr);
+            }
+            else
+            {
+                new_sub_bin_tree_root->parent()->right(nullptr);
+            }
+            //attach the leaf
+            new_sub_bin_tree_root->left(node->left());
+            new_sub_bin_tree_root->right(node->right());
+
+            //address if the SubBinarySearchTree is full tree
+            if (node == root_)
+            {
+                new_sub_bin_tree_root->parent(nullptr);
+                root_ = new_sub_bin_tree_root;
+            }
+            else
+            {
+                new_sub_bin_tree_root->parent(node->parent());
+            }
+            node.reset();
+        }
+    }
+    // Look Left
+    else if (node->data() >= data)
+    {
+        // Recurse
+        remove_rec(node->left(), data);
+    }
+    // Look Right
+    else if (node->data() < data)
+    {
+        // Recurse
+        remove_rec(node->right(), data);
     }
 }
