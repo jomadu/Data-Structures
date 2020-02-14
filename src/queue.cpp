@@ -13,7 +13,8 @@
  * 
  * @param data
  */
-void Queue::push(const int data){
+void Queue::push(const int data)
+{
     ll_.append(data);
 }
 
@@ -22,7 +23,8 @@ void Queue::push(const int data){
  * 
  * @return int data at front of Queue
  */
-int Queue::pop(){
+int Queue::pop()
+{
     int d = ll_.data(0);
     ll_.removeHead();
     return d;
@@ -33,7 +35,7 @@ int Queue::pop(){
  */
 void Queue::clear()
 {
-    while(!isEmpty())
+    while (!isEmpty())
     {
         pop();
     }
@@ -43,7 +45,8 @@ void Queue::clear()
  * 
  * @return int data at front of Queue
  */
-int Queue::peek() const{
+int Queue::peek() const
+{
     return ll_.data(0);
 }
 
@@ -53,7 +56,8 @@ int Queue::peek() const{
  * @return true queue is empty 
  * @return false queue is not empty
  */
-bool Queue::isEmpty() const{
+bool Queue::isEmpty() const
+{
     return ll_.isEmpty();
 }
 
@@ -62,6 +66,7 @@ bool Queue::isEmpty() const{
  * 
  * @return int number of datum in queue
  */
-int Queue::size() const{
+int Queue::size() const
+{
     return ll_.size();
 }
