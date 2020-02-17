@@ -1,79 +1,122 @@
+/**
+ * @file graph.cpp
+ * @author Max Dunn (maxdunn123@gmail.com)
+ * @copyright Copyright Max Dunn (c) 2020. All rights reserved.
+ * 
+ * @brief Graph implementation
+ */
+
 #include "graph.hpp"
-#include <stdexcept>
-#include <sstream>
 #include <algorithm>
-
-// Constructors
-Graph::Graph(){
-
+/**
+ * @brief Adds vertex to graph
+ * 
+ * @param key Vertex::key_
+ * @param val Vertex::val_
+ */
+void Graph::addVertex(const int key, int val)
+{
+    auto new_vertex = std::make_shared<Vertex>(key, val);
+    verticies_.emplace(std::make_pair(key, new_vertex));
 }
 
-// Constructor
-Graph::~Graph(){
-
-}
-
-// Gets
-
-// Sets
-
-// Helpers
-void Graph::addVertex(int k, int v){
-    auto new_vertex = std::make_shared<Vertex>(k, v);
-    verticies_.emplace(std::make_pair(k, new_vertex));
-}
-void Graph::removeVertex(int k){
-    verticies_.erase(k);
-    for(auto it = verticies_.begin(); it != verticies_.end(); it++){
-        it->second->removeNbr(k);
+/**
+ * @brief Remove vertex matching \p key from verticies_
+ * 
+ * @param key of vertex to remove
+ */
+void Graph::removeVertex(const int key)
+{
+    verticies_.erase(key);
+    for (auto key_vertex_pair : verticies_)
+    {
+        key_vertex_pair.second->removeNeighbor(key);
     }
 }
-void Graph::addEdge(int o, int d){
-    if (verticies_.count(o) && verticies_.count(d)){
-        auto origin = verticies_.find(o)->second;
-        auto dest = verticies_.find(d)->second;
 
-        auto origin_key = origin->key();
-        auto dest_key = dest->key();
-        
-        origin->addNbr(dest_key, dest);
-        dest->addNbr(origin_key, origin);
+/**
+ * @brief Add an edge between two verticies if they exist
+ * 
+ * @param key_1
+ * @param key_2
+ */
+void Graph::addEdge(const int key_1, const int key_2)
+{
+    if (verticies_.count(key_1) && verticies_.count(key_2))
+    {
+        auto origin = verticies_.find(key_1)->second;
+        auto dest = verticies_.find(key_2)->second;
+
+        origin->addNeighbor(key_2, dest);
+        dest->addNeighbor(key_1, origin);
     }
 }
-void Graph::removeEdge(int o, int d){
-    
-    if (verticies_.count(o) && verticies_.count(d)){
-        auto origin = verticies_.find(o)->second;
-        auto dest = verticies_.find(d)->second;
-    
-        auto origin_key = verticies_.find(o)->second->key();
-        auto dest_key = verticies_.find(d)->second->key();
-    
-        if (origin->findNbr(dest_key) && dest->findNbr(origin_key)){
-            dest->removeNbr(origin_key);
-            origin->removeNbr(dest_key);
+
+/**
+ * @brief Remove an edge between two verticies if it exists
+ * 
+ * @param key_1
+ * @param key_2 
+ */
+void Graph::removeEdge(const int key_1, const int key_2)
+{
+
+    if (verticies_.count(key_1) && verticies_.count(key_2))
+    {
+        auto origin = verticies_.find(key_1)->second;
+        auto dest = verticies_.find(key_2)->second;
+
+        if (origin->findNeighbor(key_2) && dest->findNeighbor(key_1))
+        {
+            dest->removeNeighbor(key_1);
+            origin->removeNeighbor(key_2);
         }
     }
-    
 }
-std::shared_ptr<Vertex> Graph::findVertex(int k){
-    if (verticies_.count(k)){
-        return verticies_.find(k)->second;
+
+/**
+ * @brief finds a Vertex matching \p key
+ * 
+ * @param key to search for
+ * @return std::shared_ptr<Vertex> matching vertex, or nullptr
+ */
+std::shared_ptr<Vertex> Graph::findVertex(const int key) const
+{
+    if (verticies_.count(key))
+    {
+        return verticies_.find(key)->second;
     }
-    else{
+    else
+    {
         return nullptr;
     }
 }
-bool Graph::hasEdge(int o, int d){
-    auto origin = verticies_.find(o)->second;
-    auto dest = verticies_.find(d)->second;
-    
-    int origin_key = verticies_.find(o)->second->key();
-    int dest_key = verticies_.find(d)->second->key();
-    
-    if (origin->findNbr(dest_key) && dest->findNbr(origin_key))
+
+/**
+ * @brief Evaluates if an edge exists between two verticies matching \p key_1 and \p key_2
+ * 
+ * @param key_1 
+ * @param key_2 
+ * @return true an edge exists between the verticies matching \p key_1 and \p key_2
+ * @return false an edge does not exist between the verticies matching \p key_1 and \p key_2
+ */
+bool Graph::hasEdge(const int key_1, const int key_2) const
+{
+    auto origin = verticies_.find(key_1)->second;
+    auto dest = verticies_.find(key_2)->second;
+
+    if (origin->findNeighbor(key_2) && dest->findNeighbor(key_1))
         return true;
     else
         return false;
 }
 
+/**
+ * @brief Returns the number of elements in verticies_
+ * 
+ * @return int verticies_.size()
+ */
+int Graph::count() const
+{
+    return verticies_.size();
+}
